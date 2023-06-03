@@ -7,8 +7,6 @@ import Courses from './pages/Courses';
 import Events from './pages/Events';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
-import Login from './pages/Login';
-import Registration from './pages/Registration';
 import Choices from './pages/Choices';
 import AdmLogin from './pages/admin/AdmLogin'
 import StudentLogin from './pages/student/StudentLogin'
@@ -21,6 +19,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminDashboard from './pages/admin/AdminDashboard'
 import StudentDashboard from './pages/student/StudentDashboard';
 import TeacherDashboard from './pages/teacher/TeacherDashboard';
+import TeachProtected from './components/TeachProtected'
+import StuProtected from './components/StuProtected'
+import AdmProtected from './components/AdmProtected'
+import Dashboard from './pages/Dashboard/Dashboard';
 function App() {
   return (
     <>
@@ -51,17 +53,17 @@ function App() {
 
       {/* Admin Paths */}
       <Route path="/admlogin" element={<AdmLogin/>}/>
-      <Route path="/admindashboard" element={<AdminDashboard/>}/>
+      <Route path="/admindashboard" element={<AdmProtected><AdminDashboard/></AdmProtected>}/>
 
       {/* teacher Paths */}
       <Route path="/teacherlogin" element={<TeacherLogin/>}/>
       <Route path="/teacherregistration" element={<TeacherRegistration/>}/>
-      <Route path="/teacherdashboard" element={<TeacherDashboard/>}/>
+      <Route path="/teacherdashboard" element={<TeachProtected><Dashboard/></TeachProtected>}/>
 
       {/* student paths */}
       <Route path="/studentlogin" element={<StudentLogin/>}/>
       <Route path="/studentregistration" element={<StudentRegistration/>}/>
-      <Route path="/studentdashboard" element={<StudentDashboard/>}/>
+      <Route path="/studentdashboard" element={<StuProtected><StudentDashboard/></StuProtected>}/>
 
     </Routes>
     <footer>

@@ -15,8 +15,8 @@ function StudentLogin() {
           const {data}=await axios.post("http://localhost:5000/studentlogin",actualData)
           localStorage.setItem("UserInfo",JSON.stringify(data))
           navigate("/studentdashboard")
-          window.location.reload()
           toast.success("Student Logged In")
+          window.location.reload()
         } catch (error) {
           toast.error("Email and Password is Invalid")
         }

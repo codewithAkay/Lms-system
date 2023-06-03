@@ -1,7 +1,11 @@
 import {Link} from 'react-router-dom'
 import headerLogo from './header-logo.png'
 import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
+import { Store } from './Store';
+import { useContext } from 'react';
 function Navbar() {
+  const {state}=useContext(Store)
+  const {UserInfo}=state 
   return (
     <>
    
@@ -27,8 +31,23 @@ function Navbar() {
 </li>
               </ul>
               <ul className="sign_up_btn pull-right dn-smd mt20">
+                {
+                  UserInfo?(
+                    UserInfo.isStudent?
+                    <li className="list-inline-item list_s"><Link to="/studentdashboard" className="btn " data-toggle="modal" data-target="#exampleModalCenter"> <span className="dn-lg"><Person2OutlinedIcon/>Dashboard</span></Link></li>
+                    :UserInfo.isTeacher?
+                    <li className="list-inline-item list_s"><Link to="/teacherdashboard" className="btn " data-toggle="modal" data-target="#exampleModalCenter"> <span className="dn-lg"><Person2OutlinedIcon/>Dashboard</span></Link></li>
+                    :UserInfo.isAdmin?
+                    <li className="list-inline-item list_s"><Link to="/admindashboard" className="btn " data-toggle="modal" data-target="#exampleModalCenter"> <span className="dn-lg"><Person2OutlinedIcon/>Dashboard</span></Link></li>
+                    :null
+                  )
+                  :
+                  <>
                   <li className="list-inline-item list_s"><Link to="/login" className="btn " data-toggle="modal" data-target="#exampleModalCenter"> <span className="dn-lg"><Person2OutlinedIcon/>Login</span></Link></li>
                   <li className="list-inline-item list_s"><Link to="/registration" className="btn " data-toggle="modal" data-target="#exampleModalCenter"> <span className="dn-lg"><Person2OutlinedIcon/>Registration</span></Link></li>
+                  </>
+                }
+
               </ul>
             </nav>
           </div>
@@ -63,6 +82,16 @@ function Navbar() {
 <li>
     <Link  to="/courses">
         Courses
+    </Link>
+</li>
+<li>
+    <Link  to="/choices">
+       Login
+    </Link>
+</li>
+<li>
+    <Link  to="/registration">
+        Registration
     </Link>
 </li>
             </ul>
