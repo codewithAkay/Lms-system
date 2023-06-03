@@ -41,7 +41,7 @@ router.post('/register', async (req, res) => {
     }
   });
   // Login 
-app.post('/login', async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
       const { email, password } = req.body;
   
@@ -64,3 +64,4 @@ app.post('/login', async (req, res) => {
   });
 
 
+module.exports=router

@@ -12,7 +12,7 @@ function StudentLogin() {
         }
         console.log(actualData)
         try {
-          const {data}=await axios.post("http://localhost:",actualData)
+          const {data}=await axios.post("http://localhost:5000/",actualData)
           localStorage.setItem("UserInfo",JSON.stringify(data))
           navigate("/studentdashboard")
           toast.success("Admin Logged In")

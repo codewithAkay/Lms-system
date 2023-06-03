@@ -28,11 +28,6 @@ const userSchema=new mongoose.Schema(
           type: Number,
           required: true,
         },
-        link_video: {
-          type: String,
-        },
-       
-          
           cnic: {
             type: String,
           },
@@ -51,6 +46,10 @@ const userSchema=new mongoose.Schema(
         phone: {
           type: String,
         },
+        isStudent:{
+          type:Boolean,
+          default:false
+        }
       
       },
       {

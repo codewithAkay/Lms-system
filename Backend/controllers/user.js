@@ -10,10 +10,12 @@ const router = express.Router();
 
 
 
+// STUDENT REGISTRE
 
-router.post('/register', async (req, res) => {
+router.post('/studentregister', async (req, res) => {
+  console.log("hellowe")
   try {
-    const { name, country, email, password, is_active,  department, cnic, is_verified, phone } = req.body;
+    const { name, country, email, password, department, cnic, phoneNo,profilepic } = req.body;
 
     // Check if the user already exists
     const existingUser = await User.findOne({ email: email });
@@ -33,8 +35,9 @@ router.post('/register', async (req, res) => {
       subject: subject,
       cnic: cnic,
       department: department,
-      is_verified: is_verified,
-      phone: phone,
+      profile_picture:profilepic,
+      phone: phoneNo,
+      isStudent:true
     });
 
 
@@ -46,7 +49,10 @@ router.post('/register', async (req, res) => {
   }
 });
 
-router.post('/login', async (req, res) => {
+
+// STUDENT LOGIN 
+
+router.post('/studentlogin', async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -69,8 +75,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-
-
+module.exports=router
 
 
 
