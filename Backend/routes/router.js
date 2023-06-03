@@ -1,8 +1,8 @@
 const express=require("express")
-const router=express.Router()
 
-router.get('/',(req,res)=>{
-    res.send("hellowe Anas")
-})
+const user =require ('../controllers/user.js')
+const router = express.Router();
+
+
 
 module.exports=router
