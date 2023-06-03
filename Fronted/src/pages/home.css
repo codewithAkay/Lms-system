@@ -1,0 +1,27 @@
+.animated-text {
+    animation: slideText 10s infinite; /* Adjust the duration as needed */
+  }
+  
+  @keyframes slideText {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%);
+    }
+    20% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    60% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    80% {
+      opacity: 0;
+      transform: translateX(50%);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(50%);
+    }
+  }
+  
