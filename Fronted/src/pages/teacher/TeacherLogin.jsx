@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import axios from 'axios'
 import { toast } from "react-toastify"
+import {getError} from '../../components/Utils'
 function TeacherLogin() {
+    const navigate=useNavigate()
     const submitHandler=async(e)=>{
         e.preventDefault()
         const Formdata=new FormData(e.currentTarget)
@@ -9,15 +11,15 @@ function TeacherLogin() {
           email:Formdata.get("email"),
           password:Formdata.get("password"),
         }
-        // console.log(actualData)
+        console.log(actualData)
         try {
-          const {data}=await axios.post("http://localhost:4000/authAdmin",actualData)
+          const {data}=await axios.post("http://localhost:5000/teacherlogin",actualData)
           localStorage.setItem("UserInfo",JSON.stringify(data))
           navigate("/teacherdashboard")
           toast.success("Teacher Logged In")
           window.location.reload()
         } catch (error) {
-          toast.error("Email and Password is Invalid")
+          toast.error(getError(error))
         }
        }
     return (

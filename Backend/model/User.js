@@ -26,7 +26,7 @@ const userSchema=new mongoose.Schema(
         
         is_active: {
           type: Number,
-          required: true,
+          default:false
         },
           cnic: {
             type: String,
@@ -36,7 +36,7 @@ const userSchema=new mongoose.Schema(
           },
         is_verified: {
           type: Boolean,
-          required: true,
+          default:false
         },
         profile_picture: {
           data: Buffer,
@@ -58,6 +58,6 @@ const userSchema=new mongoose.Schema(
     );
    
 
-const userModel=mongoose.model("user",userSchema)
+const userModel= mongoose.model("user",userSchema)
 
-module.export = userModel
+module.exports= userModel

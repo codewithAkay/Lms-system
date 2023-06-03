@@ -24,12 +24,12 @@ const teacherSchema=new mongoose.Schema({
       
       is_active: {
         type: Number,
-        required: true,
+        default:false
       },
      
       is_verified: {
         type: Boolean,
-        required: true,
+        default:false
       },
       subject: {
         type: String,
@@ -42,6 +42,10 @@ const teacherSchema=new mongoose.Schema({
       phone: {
         type: String,
       },
+      isTeacher:{
+        type:Boolean,
+        default:false
+      }
     
     },
     {
@@ -50,4 +54,4 @@ const teacherSchema=new mongoose.Schema({
   );
 const teacherModel=mongoose.model("teacher",teacherSchema)
 
-module.export =teacherModel
+module.exports =teacherModel
