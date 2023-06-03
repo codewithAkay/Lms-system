@@ -32,7 +32,11 @@ const userSchema=new mongoose.Schema(
           type: String,
         },
        
-          subject: {
+          
+          cnic: {
+            type: String,
+          },
+          department: {
             type: String,
           },
         is_verified: {
