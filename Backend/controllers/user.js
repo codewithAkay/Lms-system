@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.post('/register', async (req, res) => {
   try {
-    const { name, country, email, password, is_active, link_video, subject, is_verified, phone } = req.body;
+    const { name, country, email, password, is_active,  department, cnic, is_verified, phone } = req.body;
 
     // Check if the user already exists
     const existingUser = await User.findOne({ email: email });

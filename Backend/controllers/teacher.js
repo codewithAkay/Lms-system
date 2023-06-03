@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post('/register', async (req, res) => {
     try {
-      const { name, country, email, password, is_active, link_video, short_bio, is_verified, cnic, department, phone } = req.body;
+      const { name, country, email, password, is_active, is_verified,  subject, phone } = req.body;
   
       
       const existingTeacher = await Teacher.findOne({ email: email });
