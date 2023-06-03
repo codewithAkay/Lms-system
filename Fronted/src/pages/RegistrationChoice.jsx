@@ -6,9 +6,9 @@ function Choices() {
     <>
       <Grid  container spacing={4} justifyContent="center" sx={{width:"100",marginTop:5,marginBottom:5}}>
           <Box  border={1} borderColor='divider' sx={{p:3}} textAlign='center' component='form' id='signin_form'>
-            <h1>Belong To</h1><br />
+            <h1>Which Type of <br /> Accoount</h1><br />
            <Box sx={{display:"flex"}}>
-            <Link to='/teacherlogin'>
+            <Link to='/teacherregistration'>
             <h4>Teacher</h4>
             <BoyIcon sx={{fontSize:80}}/>
             </Link>

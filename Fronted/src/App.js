@@ -15,12 +15,31 @@ import StudentLogin from './pages/student/StudentLogin'
 import TeacherLogin from './pages/teacher/TeacherLogin'
 import RegistrationChoice from './pages/RegistrationChoice'
 import StudentRegistration from './pages/student/StudentRegistration';
+import TeacherRegistration from './pages/teacher/TeacherRegistration';
+import {ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import AdminDashboard from './pages/admin/AdminDashboard'
+import StudentDashboard from './pages/student/StudentDashboard';
+import TeacherDashboard from './pages/teacher/TeacherDashboard';
 function App() {
   return (
     <>
     <BrowserRouter>
+    <ToastContainer  
+   position='top-center'
+   autoClose={5000}
+   hideProgressBar={false}
+   newestOnTop={false}
+   rtl={false}
+   pauseOnFocusLoss
+   draggable
+   limit={1}
+   pauseOnHover
+   />
     <Navbar/>    
     <Routes>
+
+      {/* website Paths */}
       <Route path="/" element={<Home/>}/>
       <Route path="/courses" element={<Courses/>}/>
       <Route path="/events" element={<Events/>}/>
@@ -32,11 +51,17 @@ function App() {
 
       {/* Admin Paths */}
       <Route path="/admlogin" element={<AdmLogin/>}/>
-      {/* student Paths */}
+      <Route path="/admindashboard" element={<AdminDashboard/>}/>
+
+      {/* teacher Paths */}
       <Route path="/teacherlogin" element={<TeacherLogin/>}/>
-      {/* teacher paths */}
+      <Route path="/teacherregistration" element={<TeacherRegistration/>}/>
+      <Route path="/teacherdashboard" element={<TeacherDashboard/>}/>
+
+      {/* student paths */}
       <Route path="/studentlogin" element={<StudentLogin/>}/>
       <Route path="/studentregistration" element={<StudentRegistration/>}/>
+      <Route path="/studentdashboard" element={<StudentDashboard/>}/>
 
     </Routes>
     <footer>
