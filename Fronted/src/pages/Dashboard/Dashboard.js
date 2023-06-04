@@ -3,7 +3,6 @@ import { Container } from 'react-bootstrap';
 import Sidebar from './Sidebar';
 import './Dashboard.css'
 import { Outlet } from 'react-router-dom';
-import Header from '../../commons/Header/Header';
 import TopNavbar from '../../commons/Navbar/Navbar';
 const Dashboard = () => {
     return (
@@ -14,7 +13,7 @@ const Dashboard = () => {
                 </div>
                 <div className='main-content'>
                     <TopNavbar></TopNavbar>
-                    <Header></Header>
+                    {/* <Header></Header> */}
                     <Container fluid>
                         <Outlet></Outlet>
                     </Container>

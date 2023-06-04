@@ -2,7 +2,10 @@ import { Link, useNavigate } from "react-router-dom"
 import axios from 'axios'
 import { toast } from "react-toastify"
 import {getError} from '../../components/Utils'
+import { useContext } from "react"
+import { Store } from "../../components/Store"
 function TeacherLogin() {
+    const {dispatch}=useContext(Store)
     const navigate=useNavigate()
     const submitHandler=async(e)=>{
         e.preventDefault()
@@ -15,9 +18,9 @@ function TeacherLogin() {
         try {
           const {data}=await axios.post("http://localhost:5000/teacherlogin",actualData)
           localStorage.setItem("UserInfo",JSON.stringify(data))
+          dispatch({type:'UserLoggedIn',payload:data})
           navigate("/teacherdashboard")
           toast.success("Teacher Logged In")
-          window.location.reload()
         } catch (error) {
           toast.error(getError(error))
         }

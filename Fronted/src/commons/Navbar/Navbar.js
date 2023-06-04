@@ -1,70 +1,78 @@
 import React from 'react';
-import { Navbar, Nav, Dropdown } from 'react-bootstrap';
+import { useState } from 'react';
+import { Navbar, Nav, Modal, Button, Form } from 'react-bootstrap';
 import "./Navbar.css"
 const TopNavbar = () => {
-    return (
-        <div className='my-nav'>
-            <Navbar className='w-100 bg-white'>
-                <Nav>
-                    <Dropdown className='dropdown'>
-                        <Dropdown.Toggle variant="blank" id="dropdown-basic">
-                            ASTROLOGIA
-                        </Dropdown.Toggle>
+    const [showPopup, setShowPopup] = useState(false);
+  const [name, setName] = useState('');
+  const [image, setImage] = useState(null);
 
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    <Dropdown>
-                        <Dropdown.Toggle variant="blank" id="dropdown-basic">
-                            TAROT
-                        </Dropdown.Toggle>
+  const openPopup = () => {
+    setShowPopup(true);
+  };
 
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    <Dropdown>
-                        <Dropdown.Toggle variant="blank" id="dropdown-basic">
-                            NEUMEROLOGIA
-                        </Dropdown.Toggle>
+  const closePopup = () => {
+    setShowPopup(false);
+    setName('');
+    setImage(null);
+  };
 
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    <Dropdown>
-                        <Dropdown.Toggle variant="blank" id="dropdown-basic">
-                            CANALIZACION Y VIDAS PASADAS
-                        </Dropdown.Toggle>
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Perform form submission logic here
 
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    <Dropdown>
-                        <Dropdown.Toggle variant="blank" id="dropdown-basic">
-                            ENERGIAS Y REIKI
-                        </Dropdown.Toggle>
+    // Reset form values and close the popup
+    setName('');
+    setImage(null);
+    setShowPopup(false);
+  };
 
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </Nav>
-            </Navbar>
-        </div>
-    );
-};
+  return (
+    <Navbar className="w-100 bg-white">
+      <Nav>
+        <Button className="nav-link" onClick={openPopup}>
+          ADD CHAPTER
+        </Button>
+        <span className="nav-link" onClick={openPopup}>
+          ADD LESSON
+        </span>
+       
+      </Nav>
+
+      <Modal show={showPopup} onHide={closePopup}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Something</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="name">
+              <Form.Label>Name:</Form.Label>
+              <Form.Control
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your name"
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="image">
+              <Form.Label>Image:</Form.Label>
+              <Form.Control
+                type="file"
+                onChange={(e) => setImage(e.target.files[0])}
+                accept="image/*"
+                required
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+    </Navbar>
+  );
+}
+
 
 export default TopNavbar;

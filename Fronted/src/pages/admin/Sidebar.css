@@ -1,0 +1,104 @@
+.sidebar-style{
+    height: 100vh !important;
+    width: 10vw;
+    background-color: white;
+    
+}
+.profileImg-style{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+.company-name-style{
+    font-weight: lighter;
+    letter-spacing: 4px;
+    color: rgb(57, 49, 90);
+}
+.sidebar-name{
+    color: rgb(42, 22, 110);
+    margin-top: 10px;
+}
+.sidebar-user-type{
+    color: grey;
+}
+.head-div{
+    padding-bottom: 5px !important;
+}
+.sidebar-links{
+    color: rgb(58, 150, 150);
+    padding-top: 0 !important;
+}
+.sidebar-links > a{
+    text-decoration: none;
+}
+.pro-sidebar-content{
+    margin-top: 0;
+    padding-top: 0 !important;
+}
+.sidebar-link{
+    margin: 0 !important;
+    padding: 10px 15px;
+}
+.sidebar-items-not-login >.toggled{
+    display: none;
+}
+.sidebar-link:hover{
+    background-color: rgb(5, 66, 66);
+    color: white !important;
+}
+.sidebar-link:active{
+    background-color: red;
+    color: white;
+}
+.active{
+    background-color: rgb(58, 150, 150);
+    color: white;
+}
+.sidebar-link-user{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;    
+}
+.side-bar-icon{
+    font-size: 35px;
+    margin-left: -10px;
+}
+.sidebar-user{
+    margin-left: 12px;
+}
+.side-bar-edit-icon{
+    font-size: 30px;
+}
+.side-bar-edit-icon-header{
+    font-size: 24px;
+}
+.logout-sidebar{
+    display: block;
+}
+.sidebar-link-user-toggled > p{
+    text-align: center;
+    padding: 10px 5px;
+    
+}
+.sidebar-link-user-toggled > p:hover{
+    background-color: rgb(5, 66, 66);
+    color: white !important;
+    cursor: pointer;
+    
+}
+.profileImg-style-toggled{
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
+    margin-left: 17%;
+    margin-bottom: 25px;
+    margin-top: 20px;
+}
+.fa-bars{
+    display: block;
+}
+@media screen and (max-width: 768px) {
+    .logout-sidebar{
+        display: none !important;
+    }
+}

@@ -8,14 +8,18 @@ function Choices() {
           <Box  border={1} borderColor='divider' sx={{p:3}} textAlign='center' component='form' id='signin_form'>
             <h1>Which Type of <br /> Accoount</h1><br />
            <Box sx={{display:"flex"}}>
-            <Link to='/teacherregistration'>
+           <Box sx={{marginLeft:5}}>
+            <Link  to='/teacherregistration'>
             <h4>Teacher</h4>
             <BoyIcon sx={{fontSize:80}}/>
             </Link>
+            </Box>
+            <Box sx={{marginLeft:5}}>
             <Link to='/studentregistration'>
             <h4>Student</h4>
             <BoyIcon sx={{fontSize:80}}/>
             </Link>
+            </Box>
            </Box>
           </Box>
       </Grid>

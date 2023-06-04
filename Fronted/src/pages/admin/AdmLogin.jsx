@@ -1,7 +1,10 @@
 import { Link, useNavigate } from "react-router-dom"
 import axios from 'axios'
 import { toast } from "react-toastify"
+import { useContext } from "react"
+import { Store } from "../../components/Store"
 function AdmLogin() {
+    const {state,dispatch}=useContext(Store)
     const navigate=useNavigate()
     const submitHandler=async(e)=>{
         e.preventDefault()
@@ -13,14 +16,11 @@ function AdmLogin() {
         }
         console.log(actualData)
         try {
-          const {data}=await axios.post("http://localhost:4000/authAdmin",actualData)
-          dispatch({
-            type:"USER_SIGIN",payload:data
-          })
+          const {data}=await axios.post("http://localhost:5000/",actualData)
           localStorage.setItem("UserInfo",JSON.stringify(data))
+          dispatch({type:'UserLoggedIn',payload:data})
           navigate("/admindashboard")
           toast.success("Admin Logged In")
-          window.location.reload()
         } catch (error) {
           toast.error("Email and Password is Invalid")
         }

@@ -1,6 +1,39 @@
+import { useReducer } from 'react'
 import './home.css'
 import {Link} from 'react-router-dom'
+
+
+const reducer=(state,action)=>{
+	switch(action.type){
+	  case "FETCH_REQUEST":
+		return {...state,loading:true}
+	  case "FETCH_SUCCESS":
+		return {...state,loading:false,product:action.payload}
+	  case "FETCH_FAILURE":
+		return{...state,loading:false,product:action.payload}  
+	  default :
+	  return " "  
+	}
+	}
+	const initialtState={
+		product:[],
+		loading:true,
+		error:''
+	  }
 function Home() {
+	const [{loading,error,product},dispatch]=useReducer(reducer,initialtState)
+	useEffect(()=>{
+		const fetchData=async()=>{
+		 dispatch({type:"FETCH_REQUEST"})
+		 try {
+		   const result=await axios.get('http://localhost:4000/fetchAll')
+		   dispatch({type:"FETCH_SUCCESS",payload:result.data})
+		 } catch (error) {
+		   dispatch({type:"FETCH_FAILURE",payload:error.message})
+		 }
+		}
+		fetchData()
+	   },[])
     return (
         <>
        <div id="inst204" className="block_cocoon_slider_2 block" role="complementary" data-block="cocoon_slider_2">

@@ -9,8 +9,11 @@ const initialState={
 
 function reducer(state,action){
     switch(action.type){
-        case "AdminLogin":
-            return{...state,UserInfo:action.payload}
+        
+        case "ClearUserInfo":
+            return {...state,UserInfo:null};
+        case "UserLoggedIn":
+            return {...state,UserInfo:action.payload};
         default :
         return state    
     }

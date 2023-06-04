@@ -1,5 +1,36 @@
+import { useReducer } from "react"
 
+const reducer=(state,action)=>{
+	switch(action.type){
+	  case "FETCH_REQUEST":
+		return {...state,loading:true}
+	  case "FETCH_SUCCESS":
+		return {...state,loading:false,product:action.payload}
+	  case "FETCH_FAILURE":
+		return{...state,loading:false,product:action.payload}  
+	  default :
+	  return " "  
+	}
+	}
+	const initialtState={
+		product:[],
+		loading:true,
+		error:''
+	  }
 function Courses() {
+	const [{loading,error,product},dispatch]=useReducer(reducer,initialtState)
+	useEffect(()=>{
+		const fetchData=async()=>{
+		 dispatch({type:"FETCH_REQUEST"})
+		 try {
+		   const result=await axios.get('http://localhost:4000/fetchAll')
+		   dispatch({type:"FETCH_SUCCESS",payload:result.data})
+		 } catch (error) {
+		   dispatch({type:"FETCH_FAILURE",payload:error.message})
+		 }
+		}
+		fetchData()
+	   },[])
   return (
     <>
      <div id="ccn-main-region" class="courses-list">

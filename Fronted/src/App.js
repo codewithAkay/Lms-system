@@ -49,7 +49,7 @@ function App() {
       <Route path="/contact" element={<Contact/>}/>
       <Route path="/login" element={<Choices/>}/>
       <Route path="/registration" element={<RegistrationChoice/>}/>
-      <Route path="/choice" element={<Choices/>}/>
+      {/* <Route path="/choice" element={<Choices/>}/> */}
 
       {/* Admin Paths */}
       <Route path="/admlogin" element={<AdmLogin/>}/>
@@ -58,7 +58,7 @@ function App() {
       {/* teacher Paths */}
       <Route path="/teacherlogin" element={<TeacherLogin/>}/>
       <Route path="/teacherregistration" element={<TeacherRegistration/>}/>
-      <Route path="/teacherdashboard" element={<TeachProtected><Dashboard/></TeachProtected>}/>
+      <Route path="/teacherdashboard" element={<TeachProtected><TeacherDashboard/></TeachProtected>}/>
 
       {/* student paths */}
       <Route path="/studentlogin" element={<StudentLogin/>}/>

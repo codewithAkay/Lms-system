@@ -1,7 +1,10 @@
 import { Link, useNavigate } from "react-router-dom"
 import axios from 'axios'
 import { toast } from "react-toastify"
+import { useContext } from "react"
+import { Store } from "../../components/Store"
 function StudentLogin() {
+    const {dispatch}=useContext(Store)
     const navigate=useNavigate()
     const submitHandler=async(e)=>{
         e.preventDefault()
@@ -14,9 +17,10 @@ function StudentLogin() {
         try {
           const {data}=await axios.post("http://localhost:5000/studentlogin",actualData)
           localStorage.setItem("UserInfo",JSON.stringify(data))
+          dispatch({type:'UserLoggedIn',payload:data})
           navigate("/studentdashboard")
           toast.success("Student Logged In")
-          window.location.reload()
+        
         } catch (error) {
           toast.error("Email and Password is Invalid")
         }

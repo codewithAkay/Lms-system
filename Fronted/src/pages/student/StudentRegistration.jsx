@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import axios from 'axios'
 import { toast } from "react-toastify"
 import {getError} from '../../components/Utils'
+import { Store } from "../../components/Store";
 function StudentRegistration() {
+    const {dispatch}=useContext(Store)
     const [ProfilePic,setProfilePic]=useState()
     const navigate = useNavigate()
     const submitHandler = async (e) => {
@@ -23,9 +25,9 @@ function StudentRegistration() {
         try {
             const { data } = await axios.post("http://localhost:5000/studentregistration", actualData)
             localStorage.setItem("UserInfo", JSON.stringify(data))
+            dispatch({type:'UserLoggedIn',payload:data})
             navigate("/studentdashboard")
             toast.success("Student Registred")
-            window.location.reload()
         } catch (error) {
             toast.error(getError(error))
         }

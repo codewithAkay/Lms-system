@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import axios from 'axios'
 import { toast } from "react-toastify"
+import { Store } from "../../components/Store";
 function TeacherRegistration() {
+    const {dispatch}=useContext(Store)
     const [ProfilePic,setProfilePic]=useState()
     const navigate = useNavigate()
     const submitHandler = async (e) => {
@@ -21,8 +23,8 @@ function TeacherRegistration() {
         try {
             const { data } = await axios.post("http://localhost:5000/teacherregistration", actualData)
             localStorage.setItem("UserInfo", JSON.stringify(data))
+            dispatch({type:'UserLoggedIn',payload:data})
             navigate("/teacherdashboard")
-            window.location.reload()
             toast.success("Teacher Registred ")
         } catch (error) {
             toast.error("Email and Password is Invalid")
