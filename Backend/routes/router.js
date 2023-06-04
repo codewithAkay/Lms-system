@@ -12,10 +12,13 @@ router.post('/teacherregistration',Controllers.teacherRegistration)
 router.post('/studentlogin',Controllers.studentlogin)
 router.post('/teacherlogin',Controllers.teacherLogin)
 
-router.get('/get',(req,res)=>{
-  res.send("Hellowe")
-})
-// Login route
+// create admin
+router.post('/createadmin',Controllers.admin)
+
+router.post('/Addcourse',Controllers.Course)
+
+
+
 
 
 module.exports = router;

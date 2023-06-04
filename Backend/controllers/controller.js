@@ -2,6 +2,13 @@
 const bcrypt = require('bcrypt');
 const User = require('../model/User'); 
 const Teacher=require("../model/Teacher")
+const admin = require ('../model/Admin')
+
+const router = require('../routes/router');
+const Course = require ('../model/course')
+const fs = require('fs');
+
+
 class Controllers{
     // STUDENT LOGICS
     // Student Register 
@@ -87,40 +94,118 @@ class Controllers{
         
       }
       // Teacher Registration
-      static teacherRegistration=async(req,res)=>{
-        const { name, country, email, password,  subject, phonenumber,profilepic } = req.body;
+   
+
+      static teacherRegistration = async (req, res) => {
+        const { name, country, email, password, subject, phonenumber } = req.body;
         try {
-      
-          
           const existingTeacher = await Teacher.findOne({ email: email });
           if (existingTeacher) {
             return res.status(409).json({ error: 'Teacher already exists' });
           }
       
-          
           const hashedPassword = await bcrypt.hash(password, 10);
       
-         
+          // Read the profile picture file as a Buffer
+          let profilePicture = null;
+          if (req.file) {
+            profilePicture = fs.readFileSync(req.file.path);
+          }
+      
+          // Delete the temporary file after reading it
+          if (req.file) {
+            fs.unlinkSync(req.file.path);
+          }
+      
           const newTeacher = new Teacher({
             name: name,
             country: country,
             email: email,
             password: hashedPassword,
             subject: subject,
-            profile_picture:profilepic,
+            profile_picture: {
+              data: profilePicture,
+              contentType: req.file ? req.file.mimetype : null
+            },
             phone: phonenumber,
-            isTeacher:true
-
+            isTeacher: true
           });
       
-          // Save the new teacher
           const savedTeacher = await newTeacher.save();
       
           res.status(201).json(savedTeacher);
         } catch (error) {
+          console.error('Error in teacherRegistration:', error);
+          res.status(500).json({ error: 'An error occurred' });
+        }
+      };
+      
+      // Admin Registration
+static admin = async (req, res) => {
+  
+    try {
+      const { email, password,  } = req.body;
+  
+      // Check if the admin already exists
+      const existingAdmin = await admin.findOne({ email: email });
+      if (existingAdmin) {
+        return res.status(409).json({ error: 'Admin already exists' });
+      }
+  
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, 10);
+  
+      // Create a new admin object
+      const newAdmin = new admin({
+        email: email,
+        password: hashedPassword,
+       
+        isAdmin: true
+      });
+  
+      // Save the new admin 
+      await newAdmin.save();
+  
+      res.status(201).json({ message: 'Admin created successfully' });
+    } catch (error) {
+      console.error('Error creating admin:', error);
+      res.status(500).json({ error: 'Failed to create admin' });
+    }
+  }
+
+
+ // Create a new course object
+
+
+    static Course = async (req, res) => {
+      
+        
+          const { name, description, detail_description, thumbnail_image, Teacher_name, isActive, price, addedBy } = req.body;
+          try {
+      
+          const newCourse = new Course({
+            name: name,
+            description: description,
+            detail_description: detail_description,
+            thumbnail_image: thumbnail_image,
+            Teacher_name: Teacher_name,
+            isActive: isActive,
+            price: price,
+            addedBy: addedBy
+          });
+      
+          // Save the new course
+          const savedCourse = await newCourse.save();
+      
+          res.status(201).json(savedCourse);
+        } catch (error) {
+          console.error('Error creating course:', error);
           res.status(500).json({ error: 'An error occurred' });
         }
       }
-}
+    }
+    
+  
+
 
 module.exports=Controllers
