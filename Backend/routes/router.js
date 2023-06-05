@@ -18,7 +18,8 @@ router.post('/Admin',Controllers.Adminlogin)
 
 router.post('/Addcourse',Controllers.Course)
 router.post('/Addlesson',Controllers.Lesson)
-
+//student fetch
+router.get('/fetchstudent',Controllers.fetchStudent)
 
 
 

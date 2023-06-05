@@ -252,6 +252,11 @@ static admin = async (req, res) => {
           res.status(500).json({ error: 'An error occurred' });
         }
       }
+      //fetch student
+      static fetchStudent=async(req,res)=>{
+        const data=await User.findAll({})
+        res.status(200).send(data)
+      }
     }
     
   
