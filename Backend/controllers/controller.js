@@ -208,18 +208,16 @@ static admin = async (req, res) => {
     static Course = async (req, res) => {
       
         
-          const { name, description, detail_description, thumbnail_image, Teacher_name, isActive, price, addedBy } = req.body;
+          const { name, description, detail_description,coursepic,price } = req.body;
           try {
       
           const newCourse = new Course({
             name: name,
             description: description,
             detail_description: detail_description,
-            thumbnail_image: thumbnail_image,
-            Teacher_name: Teacher_name,
-            isActive: isActive,
+            thumbnail_image: coursepic,
+            isActive: true,
             price: price,
-            addedBy: addedBy
           });
       
           // Save the new course

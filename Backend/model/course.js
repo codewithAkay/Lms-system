@@ -16,11 +16,6 @@ const courseSchema = new mongoose.Schema({
   thumbnail_image: { 
     type: String 
   },
-   Teacher_name: {
-        type: String,
-        required: true,
-        
-      },
   isActive: { 
     type: Boolean,
      default: false
@@ -29,10 +24,6 @@ const courseSchema = new mongoose.Schema({
      type: Number,
       required: true
      },
-  addedBy: {
-     type:String, 
-     
-    },
   createdAt: {
      type: Date, 
      default: Date.now 

@@ -16,11 +16,17 @@ import { store } from "../../features/store";
 import { getUser } from "../../features/Users/userSlice";
 import { useSelector } from "react-redux";
 import { Store } from "../../components/Store";
+import { Modal } from "@mui/material";
+import AddCourse from "../admin/AddCourse";
+import EditRegistation from './EditRegistation'
 
 
-const TeachSideBar = () => {
+
+const StudentSideBar = () => {
+  
   const {state,dispatch}=useContext(Store)
   const {UserInfo}=state
+  console.log(UserInfo)
   const navigate = useNavigate();
   const location = useLocation();
   const [toggled, setToggled] = useState(false);
@@ -42,6 +48,16 @@ const TeachSideBar = () => {
     dispatch({ type: "ClearUserInfo" }); // Assuming you have a dispatch function from the store
     navigate('/'); // Navigate to the desired page after logout
   };
+  const [data, setData] = useState('');
+
+  const handleClick = () => {
+    // Set the data you want to pass as props
+    const newData = UserInfo
+
+    // Navigate to the new path and pass the data as state
+    navigate('/editregistration', { state: { data: newData } });
+  };
+  
   return (
     <CDBSidebar
       className="sidebar-style"
@@ -64,14 +80,25 @@ const TeachSideBar = () => {
         <h5 style={{fontSize:'15px'}} className="sidebar-name">Email: {UserInfo.email}</h5>
         <h5 style={{fontSize:'15px'}} className="sidebar-name">Name: {UserInfo.name.toUpperCase()}</h5>
         <h5 style={{fontSize:'15px'}} className="sidebar-name">Phone No: {UserInfo.phone}</h5>
-        <h5 style={{fontSize:'15px'}} className="sidebar-name">Subject: {UserInfo.phone}</h5>
-
-        
+        <h5 style={{fontSize:'15px'}} className="sidebar-name">Department: {UserInfo.department}</h5>
+        <h5 style={{fontSize:'15px'}} className="sidebar-name">Cnic: {UserInfo.cnic}</h5>
+       
         </div>
       </CDBSidebarHeader>
 
       <CDBSidebarContent>
         <CDBSidebarMenu className="sidebar-links">
+        <CDBSidebarMenuItem
+                    className="sidebar-link logout-sidebar"
+
+                    onClick={handleClick}
+                  >
+                    <div className="sidebar-link-user">
+                     
+                      <p className="sidebar-user mb-0">Edit Info</p>
+                 
+                    </div>
+                  </CDBSidebarMenuItem>
         <CDBSidebarMenuItem
                     className="sidebar-link logout-sidebar"
                     onClick={logouthandle}
@@ -89,4 +116,4 @@ const TeachSideBar = () => {
   );
 };
 
-export default TeachSideBar;
+export default StudentSideBar

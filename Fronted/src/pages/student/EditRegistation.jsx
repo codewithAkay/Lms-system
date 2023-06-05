@@ -1,10 +1,23 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import axios from 'axios'
 import { toast } from "react-toastify"
 import {getError} from '../../components/Utils'
 import { Store } from "../../components/Store";
-function StudentRegistration() {
+function EditRegistation() {
+    const location = useLocation();
+    const { data } = location.state;
+    const [name,setName]=useState(data.name)
+    const [password,setPassword]=useState(data.password)
+    const [email,setEmail]=useState(data.email)
+    const [phone,setPhone]=useState(data.phone)
+    const [cnic,setCnic]=useState(data.cnic)
+    const [department,setDepartment]=useState(data.department)
+    const [country,setCountry]=useState(data.country)
+    
+    console.log(data)
+//    console.log(props)
+    // const { data } = props
     const {dispatch}=useContext(Store)
     const [ProfilePic,setProfilePic]=useState()
     const navigate = useNavigate()
@@ -21,9 +34,10 @@ function StudentRegistration() {
             country: Formdata.get("country"),
             profilepic:ProfilePic
         }
-        console.log(actualData)
+        // console.log(actualData)
         try {
-            const { data } = await axios.post("http://localhost:5000/studentregistration", actualData)
+            localStorage.removeItem("UserInfo")
+            const { data } = await axios.post("http://localhost:5000/updateInfo", actualData)
             navigate("/studentlogin")
             toast.success("Student Registred")
         } catch (error) {
@@ -49,7 +63,7 @@ function StudentRegistration() {
         }
         reader.readAsDataURL(file)
     }
-
+//   console.log(data)
     return (
         <>
             <section class="our-log bgc-fa" id="yui_3_17_2_1_1685721382257_58">
@@ -66,8 +80,7 @@ function StudentRegistration() {
                                                     <div class="">
 
                                                         <div class="heading">
-                                                            <h3 class="text-center">New account</h3>
-                                                            <p class="text-center">Have an account? <Link class="text-thm" to="/choice">Login</Link></p>
+                                                            <h3 class="text-center">Edit Info</h3>
                                                         </div>
                                                     </div>
 
@@ -86,7 +99,7 @@ function StudentRegistration() {
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-md-9 form-inline felement" data-fieldtype="text">
-                                                                        <input type="text" class="form-control " name="username" id="id_username" required   size="12" maxlength="100" autocapitalize="none" />
+                                                                        <input type="text" class="form-control " value={name} onChange={(e)=>(setName(e.target.value))} name="username" id="id_username" required   size="12" maxlength="100" autocapitalize="none" />
                                                                         <div class="form-control-feedback invalid-feedback" id="id_error_username">
 
                                                                         </div>
@@ -107,7 +120,7 @@ function StudentRegistration() {
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-md-9 form-inline felement" data-fieldtype="password">
-                                                                        <input type="password" class="form-control " name="password" id="id_password"  required  size="12" maxlength="32" autocomplete="off" />
+                                                                        <input type="password" class="form-control "  onChange={(e)=>(setPassword(e.target.value))} name="password" id="id_password"  required  size="12" maxlength="32" autocomplete="off" />
                                                                         <div class="form-control-feedback invalid-feedback" id="id_error_password">
 
                                                                         </div>
@@ -124,7 +137,7 @@ function StudentRegistration() {
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-md-9 form-inline felement" data-fieldtype="text">
-                                                                        <input type="text" class="form-control " name="email" id="id_email"  required  size="25" maxlength="100" />
+                                                                        <input type="text" class="form-control " value={email} onChange={(e)=>(setEmail(e.target.value))} name="email" id="id_email"  required  size="25" maxlength="100" />
                                                                         <div class="form-control-feedback invalid-feedback" id="id_error_email">
 
                                                                         </div>
@@ -138,7 +151,7 @@ function StudentRegistration() {
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-md-9 form-inline felement" data-fieldtype="text">
-                                                                        <input type="number" class="form-control " name="phoneNo" id="id_email2" required   size="25" maxlength="100" />
+                                                                        <input type="number" class="form-control " value={phone} onChange={(e)=>(setPhone(e.target.value))} name="phoneNo" id="id_email2" required   size="25" maxlength="100" />
                                                                         <div class="form-control-feedback invalid-feedback" id="id_error_email2">
 
                                                                         </div>
@@ -152,7 +165,7 @@ function StudentRegistration() {
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-md-9 form-inline felement" data-fieldtype="text">
-                                                                        <input type="number" class="form-control " name="cnic" id="id_firstname" required   size="30" maxlength="100" />
+                                                                        <input type="number" class="form-control " value={cnic} onChange={(e)=>(setCnic(e.target.value))} name="cnic" id="id_firstname" required   size="30" maxlength="100" />
                                                                         <div class="form-control-feedback invalid-feedback" id="id_error_firstname">
 
                                                                         </div>
@@ -165,7 +178,7 @@ function StudentRegistration() {
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-md-9 form-inline felement" data-fieldtype="text">
-                                                                        <input type="text" class="form-control " name="department" id="id_lastname" required   size="30" maxlength="100" />
+                                                                        <input type="text" class="form-control " value={department} onChange={(e)=>(setDepartment(e.target.value))} name="department" id="id_lastname" required   size="30" maxlength="100" />
                                                                         <div class="form-control-feedback invalid-feedback" id="id_error_lastname">
 
                                                                         </div>
@@ -178,25 +191,13 @@ function StudentRegistration() {
                                                                         </label>
                                                                     </div>
                                                                     <div class="col-md-9 form-inline felement" data-fieldtype="text">
-                                                                        <input type="text"  class="form-control" required name="country" id="id_country" size="20" maxlength="120" accept="image/*" />
+                                                                        <input type="text"  class="form-control" value={country} onChange={(e)=>(setCountry(e.target.value))} required name="country" id="id_country" size="20" maxlength="120" accept="image/*" />
                                                                         <div class="form-control-feedback invalid-feedback" id="id_error_city">
 
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div id="fitem_id_profilepic" class="form-group row fitem">
-                                                                    <div class="col-md-3">
-                                                                        <label class="col-form-label d-inline" for="id_profilepic">
-                                                                            Profile Pic
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="col-md-9 form-inline felement" data-fieldtype="text">
-                                                                        <input type="file" onChange={handleImage} class="form-control" required name="profilepic" id="id_city" size="20" maxlength="120" accept="image/*" />
-                                                                        <div class="form-control-feedback invalid-feedback" id="id_error_city">
-
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                          
                                                                 
                                                             </div></fieldset><div id="fgroup_id_buttonar" class="form-group row  fitem femptylabel  " data-groupname="buttonar">
                                                             <div class="col-md-3">
@@ -222,7 +223,7 @@ function StudentRegistration() {
                         btn-primary
                         
                     
-                    " name="submitbutton" id="id_submitbutton" value="Create my new account" />
+                    " name="submitbutton" id="id_submitbutton" value="Update" />
                                                                     </span>
                                                                     <div class="form-control-feedback invalid-feedback" id="id_error_submitbutton">
 
@@ -236,7 +237,7 @@ function StudentRegistration() {
 
                                                                     </label>
                                                                     <span data-fieldtype="submit">
-                                                                        <Link to="/choice">
+                                                                        <Link to="/studentdashboard">
                                                                             <input type="submit" class="btn
                         
                         btn-secondary
@@ -269,4 +270,4 @@ function StudentRegistration() {
     )
 }
 
-export default StudentRegistration
+export default EditRegistation

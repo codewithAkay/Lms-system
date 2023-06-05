@@ -4,7 +4,7 @@ import Sidebar from './AdminSideBar';
 import './Dashboard.css'
 import { Outlet } from 'react-router-dom';
 import TopNavbar from './AdminNavbar';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import axios from 'axios';
 const reducer=(state,action)=>{
 	switch(action.type){
@@ -48,7 +48,7 @@ const TeachDashboard = () => {
                     <TopNavbar></TopNavbar>
                     {/* <Header></Header> */}
                     <Container fluid>
-        <h3 >Student Details</h3>
+        <h3 >Students Detail</h3>
         <TableContainer style={{marginBottom:"70px"}}>
           <Table>
             <TableHead>
@@ -69,11 +69,11 @@ const TeachDashboard = () => {
                 </TableRow> */}
               {/* ))} */}
               {student.map((prod) => (
-                <TableRow key={prod.id}>
-                  <TableCell>{prod.id}</TableCell>
+                <TableRow key={prod._id}>
+                  <TableCell>{prod._id}</TableCell>
                   <TableCell>{prod.name}</TableCell>
                   <TableCell>{prod.email}</TableCell>
-                  <TableCell><button  style={{backgroundColor:"red"}}>Delete</button></TableCell>
+                  <TableCell><Button  style={{backgroundColor:"red"}}>Delete</Button></TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -88,6 +88,7 @@ const TeachDashboard = () => {
                 <TableCell> Name </TableCell>
                 <TableCell>Lesson</TableCell>          
                 <TableCell></TableCell>          
+                <TableCell></TableCell>          
               </TableRow>
             </TableHead>
             <TableBody>
@@ -96,7 +97,8 @@ const TeachDashboard = () => {
                   <TableCell>1</TableCell>
                   <TableCell>Javascript</TableCell>
                   <TableCell>20</TableCell>
-                  <TableCell><button  style={{backgroundColor:"red"}}>Delete</button></TableCell>
+                  <TableCell><Button  style={{backgroundColor:"red"}}>Delete</Button></TableCell>
+                  <TableCell><Button  style={{backgroundColor:"blue"}}>Add Lesson</Button></TableCell>
                 </TableRow>
               {/* ))} */}
               {/* {patient.map((prod) => (

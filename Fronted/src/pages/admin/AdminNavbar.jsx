@@ -7,8 +7,7 @@ import AddChapter from './AddChapter';
 const TeachNavbar = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [showPopup2, setShowPopup2] = useState(false);
-  const [name, setName] = useState('');
-  const [image, setImage] = useState(null);
+  
 
   const openPopup = () => {
     setShowPopup(true);
@@ -31,18 +30,18 @@ const TeachNavbar = () => {
         <Button className="nav-link" onClick={openPopup}>
           ADD COURSES
         </Button>
-        <Button className="nav-link" onClick={openPopup2}>
+        {/* <Button className="nav-link" onClick={openPopup2}>
           ADD LESSON
-        </Button>
+        </Button> */}
        
       </Nav>
 
       <Modal show={showPopup} onHide={closePopup}>
        <AddCourse onClose={closePopup} />
       </Modal>
-      <Modal show={showPopup2} onHide={closePopup2}>
+      {/* <Modal show={showPopup2} onHide={closePopup2}>
        <AddChapter onClose={closePopup2}  />      
-      </Modal>
+      </Modal> */}
     </Navbar>
   );
 }

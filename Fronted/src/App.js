@@ -23,6 +23,7 @@ import TeachProtected from './components/TeachProtected'
 import StuProtected from './components/StuProtected'
 import AdmProtected from './components/AdmProtected'
 import Dashboard from './pages/Dashboard/Dashboard';
+import EditRegistation from './pages/student/EditRegistation'
 function App() {
   return (
     <>
@@ -65,6 +66,7 @@ function App() {
       <Route path="/studentlogin" element={<StudentLogin/>}/>
       <Route path="/studentregistration" element={<StudentRegistration/>}/>
       <Route path="/studentdashboard" element={<StuProtected><StudentDashboard/></StuProtected>}/>
+      <Route path="/editregistration" element={<EditRegistation/>}/>
        
       {/* page 404  */}
       <Route path="*" element={<h1>Error 404 Page Not Found</h1>}/>
