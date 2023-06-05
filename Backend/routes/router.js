@@ -13,7 +13,8 @@ router.post('/studentlogin',Controllers.studentlogin)
 router.post('/teacherlogin',Controllers.teacherLogin)
 
 // create admin
-router.post('/createadmin',Controllers.admin)
+
+router.post('/Admin',Controllers.Adminlogin)
 
 router.post('/Addcourse',Controllers.Course)
 router.post('/Addlesson',Controllers.Lesson)

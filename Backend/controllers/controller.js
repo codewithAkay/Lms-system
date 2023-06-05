@@ -2,7 +2,7 @@
 const bcrypt = require('bcrypt');
 const User = require('../model/User'); 
 const Teacher=require("../model/Teacher")
-const admin = require ('../model/Admin')
+const Admin = require ('../model/Admin')
 
 const router = require('../routes/router');
 const Course = require ('../model/course');
@@ -149,7 +149,7 @@ static admin = async (req, res) => {
       const { email, password,  } = req.body;
   
       // Check if the admin already exists
-      const existingAdmin = await admin.findOne({ email: email });
+      const existingAdmin = await Admin.findOne({ email: email });
       if (existingAdmin) {
         return res.status(409).json({ error: 'Admin already exists' });
       }
@@ -177,7 +177,7 @@ static admin = async (req, res) => {
 
 
   //admin login
-  static Admin=async(req,res)=>{
+  static Adminlogin=async(req,res)=>{
     try {
       const { email, password } = req.body;
   
@@ -188,13 +188,13 @@ static admin = async (req, res) => {
       }
   
     
-      const isPasswordMatch = await bcrypt.compare(password, user.password);
+      const isPasswordMatch = await bcrypt.compare(password, admin.password);
       if (!isPasswordMatch) {
         return res.status(401).json({ error: 'Invalid password' });
       }
   
     
-      res.status(200).send(user);
+      res.status(200).send(admin);
     } catch (error) {
       res.status(500).json({ error: 'An error occurred' });
     }
