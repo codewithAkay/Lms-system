@@ -254,7 +254,7 @@ static admin = async (req, res) => {
       }
       //fetch student
       static fetchStudent=async(req,res)=>{
-        const data=await User.findAll({})
+        const data=await User.findAll()
         res.status(200).send(data)
       }
     }

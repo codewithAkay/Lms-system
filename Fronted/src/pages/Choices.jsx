@@ -15,12 +15,6 @@ function Choices() {
             </Link>
             </Box>
             <Box sx={{marginLeft:5}}>
-            <Link to='/teacherlogin'>
-            <h4>Teacher</h4>
-            <BoyIcon sx={{fontSize:80}}/>
-            </Link>
-            </Box>
-            <Box sx={{marginLeft:5}}>
             <Link to='/studentlogin'>
             <h4>Student</h4>
             <BoyIcon sx={{fontSize:80}}/>

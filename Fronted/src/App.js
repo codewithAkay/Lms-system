@@ -48,7 +48,7 @@ function App() {
       <Route path="/blog" element={<Blog/>}/>
       <Route path="/contact" element={<Contact/>}/>
       <Route path="/login" element={<Choices/>}/>
-      <Route path="/registration" element={<RegistrationChoice/>}/>
+      <Route path="/registration" element={<StudentRegistration/>}/>
       {/* <Route path="/choice" element={<Choices/>}/> */}
 
       {/* Admin Paths */}
@@ -65,6 +65,9 @@ function App() {
       <Route path="/studentlogin" element={<StudentLogin/>}/>
       <Route path="/studentregistration" element={<StudentRegistration/>}/>
       <Route path="/studentdashboard" element={<StuProtected><StudentDashboard/></StuProtected>}/>
+       
+      {/* page 404  */}
+      <Route path="*" element={<h1>Error 404 Page Not Found</h1>}/>
 
     </Routes>
     <footer>
