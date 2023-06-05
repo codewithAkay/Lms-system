@@ -58,7 +58,8 @@ function App() {
       {/* teacher Paths */}
       <Route path="/teacherlogin" element={<TeacherLogin/>}/>
       <Route path="/teacherregistration" element={<TeacherRegistration/>}/>
-      <Route path="/teacherdashboard" element={<TeachProtected><TeacherDashboard/></TeachProtected>}/>
+      {/* <Route path="/teacherdashboard" element={<TeachProtected><TeacherDashboard/></TeachProtected>}/> */}
+      <Route path="/teacherdashboard" element={<TeachProtected><AdminDashboard/></TeachProtected>}/>
 
       {/* student paths */}
       <Route path="/studentlogin" element={<StudentLogin/>}/>

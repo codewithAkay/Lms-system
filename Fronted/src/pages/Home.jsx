@@ -1,7 +1,7 @@
-import { useReducer } from 'react'
+import { useEffect, useReducer } from 'react'
 import './home.css'
 import {Link} from 'react-router-dom'
-
+import axios from 'axios'
 
 const reducer=(state,action)=>{
 	switch(action.type){

@@ -15,7 +15,7 @@ const TeachDashboard = () => {
                     <TopNavbar></TopNavbar>
                     {/* <Header></Header> */}
                     <Container fluid>
-                        <Outlet></Outlet>
+                               <h1>hellow</h1>
                     </Container>
                 </div>
             </div>

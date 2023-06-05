@@ -1,5 +1,5 @@
-import { useReducer } from "react"
-
+import { useEffect, useReducer } from "react"
+import axios from 'axios'
 const reducer=(state,action)=>{
 	switch(action.type){
 	  case "FETCH_REQUEST":
