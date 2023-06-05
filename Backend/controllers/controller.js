@@ -260,6 +260,15 @@ static admin = async (req, res) => {
           res.status(500).send('Internal Server Error');
         }
       }
+      static fetchCourse = async (req, res) => {
+        try {
+          const data = await Course.find({}); // Use the `find` method to fetch all documents from the `User` collection
+          res.status(200).send(data);
+        } catch (error) {
+          console.error(error);
+          res.status(500).send('Internal Server Error');
+        }
+      }
     }
     
   

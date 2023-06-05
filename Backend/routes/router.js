@@ -20,6 +20,7 @@ router.post('/Addcourse',Controllers.Course)
 router.post('/Addlesson',Controllers.Lesson)
 //student fetch
 router.get('/fetchstudent',Controllers.fetchStudent)
+router.get('/fetchcourse',Controllers.fetchCourse)
 
 
 
