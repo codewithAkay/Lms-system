@@ -8,11 +8,11 @@ const TeachDashboard = () => {
     return (
         <div className='dashboard-style'>
             <div className='d-flex'>
-                <div className='sidebar-div'>
+                <div className='sidebar-div' style={{zIndex:0}}>
                     <Sidebar></Sidebar>
                 </div>
                 <div className='main-content'>
-                    <TopNavbar></TopNavbar>
+                    {/* <TopNavbar></TopNavbar> */}
                     {/* <Header></Header> */}
                     <Container fluid>
                         <Outlet></Outlet>

@@ -3,6 +3,7 @@ import axios from 'axios'
 import { toast } from "react-toastify"
 import { useContext } from "react"
 import { Store } from "../../components/Store"
+import { Box, Button } from "@mui/material"
 function StudentLogin() {
     const {dispatch}=useContext(Store)
     const navigate=useNavigate()
@@ -59,7 +60,9 @@ function StudentLogin() {
                                         <Link class="tdu btn-fpswd float-right" to="/forget">Forgot Password?</Link>
                                     </div>
 
-                                    <button type="submit" class="btn btn-log btn-block btn-thm2" id="loginbtn">Log in</button>
+                                    <Box textAlign='center'>
+                                    <Button type="submit" sx={{width:"100%"}} variant="contained" color="primary">Log in</Button>
+                                    </Box>
                                     <Link to="/registration"><button type="submit" class="btn btn-secondary">Create new account</button></Link>
 
                                 </form>

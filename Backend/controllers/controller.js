@@ -253,14 +253,9 @@ static admin = async (req, res) => {
         }
       }
       //fetch student
-      static fetchStudent = async (req, res) => {
-        try {
-          const data = await User.find({}); 
-          res.status(200).send(data);
-        } catch (error) {
-          console.error(error);
-          res.status(500).send('Internal Server Error');
-        }
+      static fetchStudent=async(req,res)=>{
+        const data=await User.findAll({})
+        res.status(200).send(data)
       }
     }
     
