@@ -21,8 +21,9 @@ function AddCourse({ onClose, onSubmit }) {
         coursepic:ProfilePic
     }
     try {
-        const { data } = await axios.post("http://localhost:5000/courseregistration", actualData)
+        const { data } = await axios.post("http://localhost:5000/Addcourse", actualData)
         toast.success("Course Added")
+        onClose()
     } catch (error) {
         toast.error(getError(error))
     }

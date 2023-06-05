@@ -14,6 +14,12 @@ const reducer=(state,action)=>{
 		return {...state,loading:false,student:action.payload}
 	  case "FETCH_FAILURE":
 		return{...state,loading:false,student:action.payload}  
+	  case "FETCH_REQUEST2":
+		return {...state,loading2:true}
+	  case "FETCH_SUCCESS2":
+		return {...state,loading2:false,course:action.payload}
+	  case "FETCH_FAILURE2":
+		return{...state,loading2:false,course:action.payload}  
 	  default :
 	  return " "  
 	}
@@ -21,10 +27,12 @@ const reducer=(state,action)=>{
 	const initialtState={
 		student:[],
 		loading:true,
+		course:[],
+		loading2:true,
 		error:''
 	  }
 const TeachDashboard = () => {
-    const [{loading,error,student},dispatch]=useReducer(reducer,initialtState)
+    const [{loading,error,student,course,loading2},dispatch]=useReducer(reducer,initialtState)
 	useEffect(()=>{
 		const fetchData=async()=>{
 		 dispatch({type:"FETCH_REQUEST"})
@@ -35,7 +43,17 @@ const TeachDashboard = () => {
 		   dispatch({type:"FETCH_FAILURE",payload:error.message})
 		 }
 		}
+		const fetchData2=async()=>{
+		 dispatch({type:"FETCH_REQUEST2"})
+		 try {
+		   const result=await axios.get('http://localhost:5000/fetchcourse')
+		   dispatch({type:"FETCH_SUCCESS2",payload:result.data})
+		 } catch (error) {
+		   dispatch({type:"FETCH_FAILURE2",payload:error.message})
+		 }
+		}
 		fetchData()
+		fetchData2()
 	   },[])
        console.log(student)
     return (
@@ -60,14 +78,6 @@ const TeachDashboard = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {/* {patient.map((prod) => ( */}
-                {/* <TableRow >
-                  <TableCell>1</TableCell>
-                  <TableCell>Zarar</TableCell>
-                  <TableCell>zarar@email.com</TableCell>
-                  <TableCell><button  style={{backgroundColor:"red"}}>Delete</button></TableCell>
-                </TableRow> */}
-              {/* ))} */}
               {student.map((prod) => (
                 <TableRow key={prod._id}>
                   <TableCell>{prod._id}</TableCell>
@@ -86,31 +96,19 @@ const TeachDashboard = () => {
               <TableRow>
                 <TableCell>ID</TableCell>
                 <TableCell> Name </TableCell>
-                <TableCell>Lesson</TableCell>          
                 <TableCell></TableCell>          
                 <TableCell></TableCell>          
               </TableRow>
             </TableHead>
             <TableBody>
-              {/* {patient.map((prod) => ( */}
-                <TableRow >
-                  <TableCell>1</TableCell>
-                  <TableCell>Javascript</TableCell>
-                  <TableCell>20</TableCell>
+               {course.map((prod) => (
+                <TableRow key={prod._id}>
+                  <TableCell>{prod._id}</TableCell>
+                  <TableCell>{prod.name}</TableCell>
                   <TableCell><Button  style={{backgroundColor:"red"}}>Delete</Button></TableCell>
                   <TableCell><Button  style={{backgroundColor:"blue"}}>Add Lesson</Button></TableCell>
                 </TableRow>
-              {/* ))} */}
-              {/* {patient.map((prod) => (
-                <TableRow key={prod.id}>
-                  <TableCell>{prod.id}</TableCell>
-                  <TableCell>{prod.name}</TableCell>
-                  <TableCell>{prod.email}</TableCell>
-                  <TableCell><button onClick={()=>{
-                    handleDeletePat(prod.id)
-                  }} style={{backgroundColor:"red"}}>Delete</button></TableCell>
-                </TableRow>
-              ))} */}
+              ))} 
             </TableBody>
           </Table>
         </TableContainer>

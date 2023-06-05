@@ -15,7 +15,6 @@ function EditRegistation() {
     const [department,setDepartment]=useState(data.department)
     const [country,setCountry]=useState(data.country)
     
-    console.log(data)
 //    console.log(props)
     // const { data } = props
     const {dispatch}=useContext(Store)
@@ -25,6 +24,7 @@ function EditRegistation() {
         e.preventDefault()
         const Formdata = new FormData(e.currentTarget)
         const actualData = {
+            id:data._id,
             email: Formdata.get("email"),
             password: Formdata.get("password"),
             name: Formdata.get("username"),

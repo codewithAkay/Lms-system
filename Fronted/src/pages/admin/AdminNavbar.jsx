@@ -28,7 +28,7 @@ const TeachNavbar = () => {
       <Nav>
        
         <Button className="nav-link" onClick={openPopup}>
-          ADD COURSES
+         <strong>ADD COURSES</strong>
         </Button>
         {/* <Button className="nav-link" onClick={openPopup2}>
           ADD LESSON
