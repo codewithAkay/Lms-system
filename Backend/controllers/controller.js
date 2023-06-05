@@ -5,7 +5,9 @@ const Teacher=require("../model/Teacher")
 const admin = require ('../model/Admin')
 
 const router = require('../routes/router');
-const Course = require ('../model/course')
+const Course = require ('../model/course');
+const Lesson = require ('../model/lesson');
+
 const fs = require('fs');
 
 
@@ -174,6 +176,32 @@ static admin = async (req, res) => {
   }
 
 
+  //admin login
+  static Admin=async(req,res)=>{
+    try {
+      const { email, password } = req.body;
+  
+    
+      const admin = await Admin.findOne({ email: email });
+      if (!admin) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+  
+    
+      const isPasswordMatch = await bcrypt.compare(password, user.password);
+      if (!isPasswordMatch) {
+        return res.status(401).json({ error: 'Invalid password' });
+      }
+  
+    
+      res.status(200).send(user);
+    } catch (error) {
+      res.status(500).json({ error: 'An error occurred' });
+    }
+    
+  }
+
+
  // Create a new course object
 
 
@@ -200,6 +228,27 @@ static admin = async (req, res) => {
           res.status(201).json(savedCourse);
         } catch (error) {
           console.error('Error creating course:', error);
+          res.status(500).json({ error: 'An error occurred' });
+        }
+      }
+      static Lesson = async (req, res) => {
+        const { id, title, description, thumbnail_image, file_field } = req.body;
+      
+        try {
+          const newLesson = new Lesson({
+            id: id,
+            title: title,
+            description: description,
+            thumbnail_image: thumbnail_image,
+            file_field: file_field
+          });
+      
+          // Save the new lesson
+          const savedLesson = await newLesson.save();
+      
+          res.status(201).json(savedLesson);
+        } catch (error) {
+          console.error('Error creating lesson:', error);
           res.status(500).json({ error: 'An error occurred' });
         }
       }

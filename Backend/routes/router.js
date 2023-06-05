@@ -16,6 +16,7 @@ router.post('/teacherlogin',Controllers.teacherLogin)
 router.post('/createadmin',Controllers.admin)
 
 router.post('/Addcourse',Controllers.Course)
+router.post('/Addlesson',Controllers.Lesson)
 
 
 
