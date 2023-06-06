@@ -229,6 +229,25 @@ static admin = async (req, res) => {
           res.status(500).json({ error: 'An error occurred' });
         }
       }
+
+      //Delete course by ID
+      static deleteCourse = async (req, res) => {
+        const { id } = req.params;
+      
+        try {
+          
+          const deletedCourse = await Course.findByIdAndDelete(id);
+      
+          if (!deletedCourse) {
+            return res.status(404).json({ error: 'Course not found' });
+          }
+      
+          res.status(200).json({ message: 'Course deleted successfully' });
+        } catch (error) {
+          console.error('Error deleting course:', error);
+          res.status(500).json({ error: 'An error occurred' });
+        }
+      }
       static Lesson = async (req, res) => {
         const { id, title, description, thumbnail_image, file_field } = req.body;
       
@@ -253,7 +272,7 @@ static admin = async (req, res) => {
       //fetch student
       static fetchStudent = async (req, res) => {
         try {
-          const data = await User.find({}); // Use the `find` method to fetch all documents from the `User` collection
+          const data = await User.find({}); 
           res.status(200).send(data);
         } catch (error) {
           console.error(error);
@@ -269,7 +288,46 @@ static admin = async (req, res) => {
           res.status(500).send('Internal Server Error');
         }
       }
+      // Student UPDATE through ID
+static studentUpdate = async (req, res) => {
+  try {
+    const { id } = req.params; 
+    const { email, password, name, country } = req.body; 
+
+ 
+    const updatedStudent = await User.findByIdAndUpdate(
+      id,
+      { email, password, name, country },
+      { new: true } 
+    );
+
+    if (!updatedStudent) {
+      return res.status(404).json({ error: 'User not found' });
     }
+
+    res.status(200).send(updatedStudent);
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred' });
+  }
+}
+// Student DELETE by ID
+static studentDelete = async (req, res) => {
+  try {
+    const { id } = req.params; 
+  
+    const deletedStudent = await User.findByIdAndDelete(id);
+
+    if (!deletedStudent) {
+      return res.status(404).json({ error: 'Student not found' });
+    }
+
+    res.status(200).json({ message: 'Student deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred' });
+  }
+}
+
+ }
     
   
 

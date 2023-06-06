@@ -11,6 +11,12 @@ router.post('/teacherregistration',Controllers.teacherRegistration)
 // Login Route
 router.post('/studentlogin',Controllers.studentlogin)
 router.post('/teacherlogin',Controllers.teacherLogin)
+//update stud by Id
+router.put('/updatestu',Controllers.studentUpdate)
+//Delete student
+router.delete('/Deletestu',Controllers.studentDelete)
+//Delete course by ID
+router.delete('/Deletescourse',Controllers.deleteCourse)
 
 // create admin
 
@@ -21,6 +27,7 @@ router.post('/Addlesson',Controllers.Lesson)
 //student fetch
 router.get('/fetchstudent',Controllers.fetchStudent)
 router.get('/fetchcourse',Controllers.fetchCourse)
+
 
 
 
