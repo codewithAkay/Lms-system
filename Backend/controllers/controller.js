@@ -249,15 +249,15 @@ static admin = async (req, res) => {
         }
       }
       static Lesson = async (req, res) => {
-        const { id, title, description, thumbnail_image, file_field } = req.body;
+        const { id, name, pdf, video, exercise_pdf } = req.body;
       
         try {
           const newLesson = new Lesson({
-            id: id,
-            title: title,
-            description: description,
-            thumbnail_image: thumbnail_image,
-            file_field: file_field
+           id: id,
+           name: name,
+           pdf: pdf,
+           video: video,
+          exercise_pdf: exercise_pdf
           });
       
           // Save the new lesson
@@ -291,14 +291,22 @@ static admin = async (req, res) => {
       // Student UPDATE through ID
 static studentUpdate = async (req, res) => {
   try {
-    const { id } = req.params; 
-    const { email, password, name, country } = req.body; 
+    const { id } = req.body; 
+    const {name, country, email, password, department, cnic, phonenumber,profilepic } = req.body; 
 
  
     const updatedStudent = await User.findByIdAndUpdate(
       id,
-      { email, password, name, country },
-      { new: true } 
+      {   name: name,
+        country: country,
+        email: email,
+        password: hashedPassword,
+        cnic: cnic,
+        department: department,
+        profile_picture:profilepic,
+        phone: phonenumber,
+        isStudent:true },
+      
     );
 
     if (!updatedStudent) {

@@ -6,25 +6,22 @@ const lessonSchema = new mongoose.Schema({
     type: String,
      required: true
      },
-  title: {
+  name: {
      type: String,
       required: true 
     },
-  description: { 
+  pdf: { 
     type: String,
      required: true 
     },
-  thumbnail_image: { 
+  video: { 
     type: String 
   },
-  file_field: { 
+ exercise: { 
     type: String, 
     required: true
    },
-  createdAt: { 
-    type: Date,
-     default: Date.now 
-    }
+  
 });
 
 

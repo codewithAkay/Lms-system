@@ -12,7 +12,7 @@ router.post('/teacherregistration',Controllers.teacherRegistration)
 router.post('/studentlogin',Controllers.studentlogin)
 router.post('/teacherlogin',Controllers.teacherLogin)
 //update stud by Id
-router.put('/updatestu',Controllers.studentUpdate)
+router.post('/updatestu',Controllers.studentUpdate)
 //Delete student
 router.post('/deletestudent',Controllers.studentDelete)
 //Delete course by ID
