@@ -95,7 +95,7 @@ function CoursesView() {
                         </div>
                         <br/>
                   <span class="notifications" id="user-notifications"></span>
-                  <span id="maincontent"></span><form action="." method="get"><div><input type="hidden" id="completion_dynamic_change" name="completion_dynamic_change" value="0"/></div></form><div class="course-content"><h2 class="accesshide">Topic outline</h2><div class="ccn_course_content topics"><div id="section-0" class="section main clearfix details" role="region" aria-label="General"><div id="accordion" class="panel-group cc_tab">
+                  <span id="maincontent"></span><form action="." method="get"><div><input type="hidden" id="completion_dynamic_change" name="completion_dynamic_change" value="0"/></div></form><div class="course-content"><h2 class="accesshide">Course outline</h2><div class="ccn_course_content topics"><div id="section-0" class="section main clearfix details" role="region" aria-label="General"><div id="accordion" class="panel-group cc_tab">
               <div class="panel">
                 <div class="panel-heading"><h4 class="panel-title">
                   <a href="#panel-0" class="accordion-toggle link" data-toggle="collapse" data-parent="#accordion">General</a>

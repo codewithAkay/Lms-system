@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Modal } from 'react-bootstrap';
 import Sidebar from './AdminSideBar';
 import './Dashboard.css'
 import { Outlet } from 'react-router-dom';
@@ -7,6 +7,7 @@ import TopNavbar from './AdminNavbar';
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import AddChapter from './AddChapter';
 const reducer=(state,action)=>{
 	switch(action.type){
 	  case "FETCH_REQUEST":
@@ -14,13 +15,13 @@ const reducer=(state,action)=>{
 	  case "FETCH_SUCCESS":
 		return {...state,loading:false,student:action.payload}
 	  case "FETCH_FAILURE":
-		return{...state,loading:false,student:action.payload}  
+		return{...state,loading:false,error:action.payload}  
 	  case "FETCH_REQUEST2":
 		return {...state,loading2:true}
 	  case "FETCH_SUCCESS2":
 		return {...state,loading2:false,course:action.payload}
 	  case "FETCH_FAILURE2":
-		return{...state,loading2:false,course:action.payload}  
+		return{...state,loading2:false,error2:action.payload}  
 	  default :
 	  return " "  
 	}
@@ -28,13 +29,14 @@ const reducer=(state,action)=>{
 	const initialtState={
 		student:[],
 		loading:true,
+    error:'',
 		course:[],
 		loading2:true,
-		error:''
+		error2:''
 	  }
 const TeachDashboard = () => {
-    const [{loading,error,student,course,loading2},dispatch]=useReducer(reducer,initialtState)
-    const [courses, setCourses] = useState([]);
+    const [{loading,error,student,course,loading2,error2},dispatch]=useReducer(reducer,initialtState)
+    const [showPopup2, setShowPopup2] = useState(false);
 	useEffect(()=>{
 		const fetchData=async()=>{
 		 dispatch({type:"FETCH_REQUEST"})
@@ -54,12 +56,11 @@ const TeachDashboard = () => {
 		   dispatch({type:"FETCH_FAILURE2",payload:error.message})
 		 }
 		}
-		fetchData()
 		fetchData2()
-	   },[])
+		fetchData()
+	   },[dispatch])
       //  console.log(student)
        const deleteStudent=async(id)=>{
-        console.log('delete me')
         const student={id:id}
         try {
           const data=await axios.post("http://localhost:5000/deletestudent",student)
@@ -80,6 +81,13 @@ const TeachDashboard = () => {
           toast.error(error.message)
          }
       }
+      const openPopup = () => {
+          // console.log("Enter Data")
+        setShowPopup2(true);
+      };
+      const closePopup2 = () => {
+        setShowPopup2(false);
+      };
     return (
         <div className='dashboard-style'>
             <div className='d-flex'>
@@ -113,6 +121,7 @@ const TeachDashboard = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        
         <h3 >Added Courses</h3>
         <TableContainer style={{marginBottom:"70px"}}>
           <Table>
@@ -126,12 +135,29 @@ const TeachDashboard = () => {
             </TableHead>
             <TableBody>
                {course.map((prod) => (
+                <>          
                 <TableRow key={prod._id}>
+                  <Modal show={showPopup2} onHide={closePopup2}>
+                  <AddChapter onClose={closePopup2} id={prod._id} />      
+                 </Modal>
                   <TableCell>{prod._id}</TableCell>
                   <TableCell>{prod.name}</TableCell>
                   <TableCell><Button onClick={()=>{deleteCourse(prod._id)}} style={{backgroundColor:"red"}}>Delete</Button></TableCell>
-                  <TableCell><Button  style={{backgroundColor:"blue"}}>Add Lesson</Button></TableCell>
+                  <TableCell><Button onClick={openPopup} style={{ backgroundColor: "blue" }}>Add Lesson</Button></TableCell>
                 </TableRow>
+                <TableBody>
+                <TableHead>
+                <TableRow>
+                <TableCell>Lessons in {prod.name}</TableCell>
+                </TableRow>
+                </TableHead>
+                <TableRow>
+                 <TableCell>
+                  <li></li>
+                 </TableCell>
+                </TableRow>
+                </TableBody>
+                </>
               ))} 
             </TableBody>
           </Table>

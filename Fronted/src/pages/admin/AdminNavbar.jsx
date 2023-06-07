@@ -6,22 +6,18 @@ import AddCourse from './AddCourse';
 import AddChapter from './AddChapter';
 const TeachNavbar = () => {
     const [showPopup, setShowPopup] = useState(false);
-    const [showPopup2, setShowPopup2] = useState(false);
+    // const [showPopup2, setShowPopup2] = useState(false);
   
 
   const openPopup = () => {
     setShowPopup(true);
   };
-  const openPopup2 = () => {
-    setShowPopup2(true);
-  };
+ 
 
   const closePopup = () => {
     setShowPopup(false);
   };
-  const closePopup2 = () => {
-    setShowPopup2(false);
-  };
+  
 
   return (
     <Navbar className="w-100 bg-white">
