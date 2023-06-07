@@ -1,4 +1,5 @@
 
+const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const User = require('../model/User'); 
 const Teacher=require("../model/Teacher")
@@ -7,6 +8,7 @@ const Admin = require ('../model/Admin')
 const router = require('../routes/router');
 const Course = require ('../model/course');
 const Lesson = require ('../model/lesson');
+const conforamtion = require ('../model/conformation');
 
 const fs = require('fs');
 
@@ -292,7 +294,7 @@ static admin = async (req, res) => {
 static studentUpdate = async (req, res) => {
   try {
     const { id } = req.body; 
-    const {name, country, email, password, department, cnic, phonenumber,profilepic } = req.body; 
+    const {name, country, email, hashedPassword, department, cnic, phonenumber,profilepic } = req.body; 
 
  
     const updatedStudent = await User.findByIdAndUpdate(
@@ -335,7 +337,88 @@ static studentDelete = async (req, res) => {
   }
 }
 
- }
+
+
+///forget Password
+
+
+  static sendConfirmationCode = async (req, res) => {
+    try {
+      const { email } = req.body;
+
+      // Check if the user exists in the database
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      // Generate a random confirmation code
+      const confirmationCode = Math.random().toString(36).slice(-8);
+
+      // Store the confirmation code in the database
+      user.confirmationCode = confirmationCode;
+      await user.save();
+
+      // Send the confirmation email
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'your-email@gmail.com',
+          pass: 'your-password',
+        },
+      });
+
+      const mailOptions = {
+        from: 'your-email@gmail.com',
+        to: email,
+        subject: 'Password Reset Confirmation Code',
+        text: `Your confirmation code is: ${confirmationCode}`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.log(error);
+          return res.status(500).json({ message: 'Failed to send confirmation code' });
+        }
+        console.log('Email sent:', info.response);
+        res.json({ message: 'Confirmation code sent successfully' });
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+
+  static resetPassword = async (req, res) => {
+    try {
+      const { email, confirmationCode, newPassword } = req.body;
+
+      // Check if the user exists in the database
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      // Check if the confirmation code matches
+      if (user.confirmationCode !== confirmationCode) {
+        return res.status(400).json({ message: 'Invalid confirmation code' });
+      }
+
+      // Update the user's password
+      user.password = newPassword;
+      user.confirmationCode = null;
+      await user.save();
+
+      res.json({ message: 'Password reset successful' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+}
+
+
+
     
   
 
