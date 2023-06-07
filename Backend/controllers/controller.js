@@ -306,7 +306,7 @@ static studentUpdate = async (req, res) => {
         profile_picture:profilepic,
         phone: phonenumber,
         isStudent:true },
-      { new: true } 
+      
     );
 
     if (!updatedStudent) {
