@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from 'react'
 import './home.css'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
 const reducer=(state,action)=>{
@@ -22,11 +22,16 @@ const reducer=(state,action)=>{
 	  }
 function Home() {
 	const [{loading,error,product},dispatch]=useReducer(reducer,initialtState)
+  const navigate=useNavigate()
+  const handleClick=(item)=>{
+    // Navigate to the new path and pass the data as state
+    navigate('/courseview', { state: { data: item } });
+     }
 	useEffect(()=>{
 		const fetchData=async()=>{
 		 dispatch({type:"FETCH_REQUEST"})
 		 try {
-		   const result=await axios.get('http://localhost:4000/fetchAll')
+		   const result=await axios.get('http://localhost:5000/fetchcourse')
 		   dispatch({type:"FETCH_SUCCESS",payload:result.data})
 		 } catch (error) {
 		   dispatch({type:"FETCH_FAILURE",payload:error.message})
@@ -34,6 +39,8 @@ function Home() {
 		}
 		fetchData()
 	   },[])
+
+	   
     return (
         <>
        <div id="inst204" className="block_cocoon_slider_2 block" role="complementary" data-block="cocoon_slider_2">
@@ -105,13 +112,13 @@ function Home() {
     </div>
     <div class="row">
 
+        {product.map((item)=>(
 
-            <div class="col-md-6 col-lg-4 col-xl-3">
+			<div class="col-md-6 col-lg-4 col-xl-3">
 							<div class="top_courses">
-              <Link to="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=11">
-								<div class="thumb">
-
-									<img class="img-whp" src="http://demo.createdbycocoon.com/moodle/edumy/2/pluginfile.php/156/course/overviewfiles/t8.jpg" alt="Fashion Photography From Professional"/>
+              {/* <Link to={handleClick}> */}
+								<div class="thumb" onClick={()=>{handleClick(item)}}>
+									<img class="img-whp" height='130px' src={item.thumbnail_image} alt="Fashion Photography From Professional"/>
 									<div class="overlay">
 										<div class="tag">Top Seller</div>
 										<span class="tc_preview_course">Preview Course</span>
@@ -119,293 +126,17 @@ function Home() {
 								</div>
 								<div class="details">
 									<div class="tc_content">
-                  <p>Updated 21/12/19</p>
-										<h5>Fashion Photography From Professional</h5>
-										<ul class="tc_review">
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-										</ul>
+                  <p>Updated {item.createdAt}</p>
+										<h5>{item.name}</h5>
+										
 									</div>
-									<div class="tc_footer">
-										<ul class="tc_meta float-left">
-											<li class="list-inline-item"><i class="flaticon-profile"></i></li>
-											<li class="list-inline-item">2</li>
-											<li class="list-inline-item"><i class="flaticon-comment"></i></li>
-											<li class="list-inline-item">5</li>
-										</ul>
-									</div>
-								</div></Link>
-							</div>
-						</div>
-
-
-            
-
-            <div class="col-md-6 col-lg-4 col-xl-3">
-							<div class="top_courses">
-              <Link to="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=4">
-								<div class="thumb">
-
-									<img class="img-whp" src="http://demo.createdbycocoon.com/moodle/edumy/2/pluginfile.php/146/course/overviewfiles/t1.jpg" alt="Introduction Web Design &amp; HTML"/>
-									<div class="overlay">
-										<div class="tag">Top Seller</div>
-										<span class="tc_preview_course">Preview Course</span>
-									</div>
+									
 								</div>
-								<div class="details">
-									<div class="tc_content">
-                  <p>Updated 21/12/19</p>
-										<h5>Introduction Web Design &amp; HTML</h5>
-										<ul class="tc_review">
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-										</ul>
-									</div>
-									<div class="tc_footer">
-										<ul class="tc_meta float-left">
-											<li class="list-inline-item"><i class="flaticon-profile"></i></li>
-											<li class="list-inline-item">0</li>
-											<li class="list-inline-item"><i class="flaticon-comment"></i></li>
-											<li class="list-inline-item">5</li>
-										</ul>
-									</div>
-								</div></Link>
+                {/* </Link> */}
 							</div>
 						</div>
+				))}
 
-
-            
-
-            <div class="col-md-6 col-lg-4 col-xl-3">
-							<div class="top_courses">
-              <Link to="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=10">
-								<div class="thumb">
-
-									<img class="img-whp" src="http://demo.createdbycocoon.com/moodle/edumy/2/pluginfile.php/155/course/overviewfiles/t7.jpg" alt="How to Make Beautiful Landscape Photos?"/>
-									<div class="overlay">
-										<div class="tag">Top Seller</div>
-										<span class="tc_preview_course">Preview Course</span>
-									</div>
-								</div>
-								<div class="details">
-									<div class="tc_content">
-                  <p>Updated 28/12/19</p>
-										<h5>How to Make Beautiful Landscape Photos?</h5>
-										<ul class="tc_review">
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-										</ul>
-									</div>
-									<div class="tc_footer">
-										<ul class="tc_meta float-left">
-											<li class="list-inline-item"><i class="flaticon-profile"></i></li>
-											<li class="list-inline-item">0</li>
-											<li class="list-inline-item"><i class="flaticon-comment"></i></li>
-											<li class="list-inline-item">0</li>
-										</ul>
-									</div>
-								</div></Link>
-							</div>
-						</div>
-
-
-            
-
-            <div class="col-md-6 col-lg-4 col-xl-3">
-							<div class="top_courses">
-              <Link to="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=8">
-								<div class="thumb">
-
-									<img class="img-whp" src="http://demo.createdbycocoon.com/moodle/edumy/2/pluginfile.php/153/course/overviewfiles/t5.jpg" alt="Design Instruments for Communication"/>
-									<div class="overlay">
-										<div class="tag">Top Seller</div>
-										<span class="tc_preview_course">Preview Course</span>
-									</div>
-								</div>
-								<div class="details">
-									<div class="tc_content">
-                  <p>Updated 29/12/19</p>
-										<h5>Design Instruments for Communication</h5>
-										<ul class="tc_review">
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-										</ul>
-									</div>
-									<div class="tc_footer">
-										<ul class="tc_meta float-left">
-											<li class="list-inline-item"><i class="flaticon-profile"></i></li>
-											<li class="list-inline-item">1</li>
-											<li class="list-inline-item"><i class="flaticon-comment"></i></li>
-											<li class="list-inline-item">0</li>
-										</ul>
-									</div>
-								</div></Link>
-							</div>
-						</div>
-
-
-            
-
-            <div class="col-md-6 col-lg-4 col-xl-3">
-							<div class="top_courses">
-              <Link to="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=9">
-								<div class="thumb">
-
-									<img class="img-whp" src="http://demo.createdbycocoon.com/moodle/edumy/2/pluginfile.php/154/course/overviewfiles/t6.jpg" alt="How to be a DJ? Make Electronic Music"/>
-									<div class="overlay">
-										<div class="tag">Top Seller</div>
-										<span class="tc_preview_course">Preview Course</span>
-									</div>
-								</div>
-								<div class="details">
-									<div class="tc_content">
-                  <p>Updated 28/12/19</p>
-										<h5>How to be a DJ? Make Electronic Music</h5>
-										<ul class="tc_review">
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-										</ul>
-									</div>
-									<div class="tc_footer">
-										<ul class="tc_meta float-left">
-											<li class="list-inline-item"><i class="flaticon-profile"></i></li>
-											<li class="list-inline-item">0</li>
-											<li class="list-inline-item"><i class="flaticon-comment"></i></li>
-											<li class="list-inline-item">0</li>
-										</ul>
-									</div>
-								</div></Link>
-							</div>
-						</div>
-
-
-            
-
-            <div class="col-md-6 col-lg-4 col-xl-3">
-							<div class="top_courses">
-              <Link to="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=5">
-								<div class="thumb">
-
-									<img class="img-whp" src="http://demo.createdbycocoon.com/moodle/edumy/2/pluginfile.php/148/course/overviewfiles/t2.jpg" alt="Designing a Responsive Mobile Website using Muse"/>
-									<div class="overlay">
-										<div class="tag">Top Seller</div>
-										<span class="tc_preview_course">Preview Course</span>
-									</div>
-								</div>
-								<div class="details">
-									<div class="tc_content">
-                  <p>Updated 21/12/19</p>
-										<h5>Designing a Responsive Mobile Website using Muse</h5>
-										<ul class="tc_review">
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-										</ul>
-									</div>
-									<div class="tc_footer">
-										<ul class="tc_meta float-left">
-											<li class="list-inline-item"><i class="flaticon-profile"></i></li>
-											<li class="list-inline-item">0</li>
-											<li class="list-inline-item"><i class="flaticon-comment"></i></li>
-											<li class="list-inline-item">5</li>
-										</ul>
-									</div>
-								</div></Link>
-							</div>
-						</div>
-
-
-            
-
-            <div class="col-md-6 col-lg-4 col-xl-3">
-							<div class="top_courses">
-              <Link to="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=6">
-								<div class="thumb">
-
-									<img class="img-whp" src="http://demo.createdbycocoon.com/moodle/edumy/2/pluginfile.php/150/course/overviewfiles/t3.jpg" alt="Adobe XD: Prototyping Tips and Tricks"/>
-									<div class="overlay">
-										<div class="tag">Top Seller</div>
-										<span class="tc_preview_course">Preview Course</span>
-									</div>
-								</div>
-								<div class="details">
-									<div class="tc_content">
-                  <p>Updated 21/12/19</p>
-										<h5>Adobe XD: Prototyping Tips and Tricks</h5>
-										<ul class="tc_review">
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-										</ul>
-									</div>
-									<div class="tc_footer">
-										<ul class="tc_meta float-left">
-											<li class="list-inline-item"><i class="flaticon-profile"></i></li>
-											<li class="list-inline-item">0</li>
-											<li class="list-inline-item"><i class="flaticon-comment"></i></li>
-											<li class="list-inline-item">5</li>
-										</ul>
-									</div>
-								</div></Link>
-							</div>
-						</div>
-
-
-            
-
-            <div class="col-md-6 col-lg-4 col-xl-3">
-							<div class="top_courses">
-              <Link to="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=7">
-								<div class="thumb">
-
-									<img class="img-whp" src="http://demo.createdbycocoon.com/moodle/edumy/2/pluginfile.php/152/course/overviewfiles/t4.jpg" alt="Sketch: Creating Responsive SVG"/>
-									<div class="overlay">
-										<div class="tag">Top Seller</div>
-										<span class="tc_preview_course">Preview Course</span>
-									</div>
-								</div>
-								<div class="details">
-									<div class="tc_content">
-                  <p>Updated 21/12/19</p>
-										<h5>Sketch: Creating Responsive SVG</h5>
-										<ul class="tc_review">
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-										</ul>
-									</div>
-									<div class="tc_footer">
-										<ul class="tc_meta float-left">
-											<li class="list-inline-item"><i class="flaticon-profile"></i></li>
-											<li class="list-inline-item">1</li>
-											<li class="list-inline-item"><i class="flaticon-comment"></i></li>
-											<li class="list-inline-item">5</li>
-										</ul>
-									</div>
-								</div></Link>
-							</div>
-						</div>
 
 
                     <div class="col-lg-6 offset-lg-3">

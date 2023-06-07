@@ -7,6 +7,7 @@ import { Store } from "../../components/Store";
 function EditRegistation() {
     const location = useLocation();
     const { data } = location.state;
+    console.log(data)
     const [name,setName]=useState(data.name)
     const [password,setPassword]=useState(data.password)
     const [email,setEmail]=useState(data.email)

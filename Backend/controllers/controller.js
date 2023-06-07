@@ -232,7 +232,7 @@ static admin = async (req, res) => {
 
       //Delete course by ID
       static deleteCourse = async (req, res) => {
-        const { id } = req.params;
+        const { id } = req.body;
       
         try {
           
@@ -313,7 +313,7 @@ static studentUpdate = async (req, res) => {
 // Student DELETE by ID
 static studentDelete = async (req, res) => {
   try {
-    const { id } = req.params; 
+    const { id } = req.body; 
   
     const deletedStudent = await User.findByIdAndDelete(id);
 

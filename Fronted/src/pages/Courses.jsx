@@ -23,7 +23,7 @@ function Courses() {
 		const fetchData=async()=>{
 		 dispatch({type:"FETCH_REQUEST"})
 		 try {
-		   const result=await axios.get('http://localhost:4000/fetchAll')
+		   const result=await axios.get('http://localhost:5000/fetchcourse')
 		   dispatch({type:"FETCH_SUCCESS",payload:result.data})
 		 } catch (error) {
 		   dispatch({type:"FETCH_FAILURE",payload:error.message})

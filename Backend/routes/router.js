@@ -14,9 +14,9 @@ router.post('/teacherlogin',Controllers.teacherLogin)
 //update stud by Id
 router.put('/updatestu',Controllers.studentUpdate)
 //Delete student
-router.delete('/Deletestu',Controllers.studentDelete)
+router.post('/deletestudent',Controllers.studentDelete)
 //Delete course by ID
-router.delete('/Deletescourse',Controllers.deleteCourse)
+router.post('/deletecourse',Controllers.deleteCourse)
 
 // create admin
 

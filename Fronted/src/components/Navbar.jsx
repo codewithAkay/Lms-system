@@ -12,13 +12,7 @@ function Navbar() {
      <header className="header-nav home2 style_one navbar-scrolltofixed main-menu" style={{zIndex:"99",position:"relative",top: "0px"}}>
           <div className="container">
             <nav>
-              <div className="menu-toggle">
-                <button type="button" id="menu-btn">
-                  <span className="icon-bar"></span>
-                  <span className="icon-bar"></span>
-                  <span className="icon-bar"></span>
-                </button>
-              </div>
+             
               <ul id="respMenu" className="ace-responsive-menu" data-menu-style="horizontal">
                 <li>
     <Link to="/">
@@ -60,13 +54,7 @@ function Navbar() {
                 <span>ExarthDumy</span>
               </div>
               <ul className="menu_bar_home2">
-                <li className="list-inline-item">
-                  <div className="search_overlay">
-                    <a id="search-button-listener2" className="mk-search-trigger mk-fullscreen-trigger" href="#">
-                      <div id="search-button2"><i className="flaticon-magnifying-glass"></i></div>
-                    </a>
-                  </div>
-                </li>
+                
                 <li className="list-inline-item"><a href="#menu"><span></span></a></li>
               </ul>
             </div>
@@ -84,16 +72,35 @@ function Navbar() {
         Courses
     </Link>
 </li>
+{
+                  UserInfo?(
+                    UserInfo.isStudent?
 <li>
-    <Link  to="/choices">
-       Login
+    <Link  to="/studentdashboard">
+        Dashboard
     </Link>
-</li>
+</li>                    :UserInfo.isTeacher?
+                    <li className="list-inline-item list_s"><Link to="/teacherdashboard" className="btn " data-toggle="modal" data-target="#exampleModalCenter"> <span className="dn-lg"><Person2OutlinedIcon/>Dashboard</span></Link></li>
+                    :UserInfo.isAdmin?
+<li>
+    <Link  to="/admindashboard">
+        Dashboard
+    </Link>
+</li>                    :null
+                  )
+                  :
+                  <>
+<li>
+    <Link  to="/login">
+        Login
+    </Link>
+</li> 
 <li>
     <Link  to="/registration">
         Registration
     </Link>
-</li>
+</li>                  </>
+                }
             </ul>
           </nav>
         </div>

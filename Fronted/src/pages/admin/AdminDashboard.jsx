@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Sidebar from './AdminSideBar';
 import './Dashboard.css'
@@ -6,6 +6,7 @@ import { Outlet } from 'react-router-dom';
 import TopNavbar from './AdminNavbar';
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 const reducer=(state,action)=>{
 	switch(action.type){
 	  case "FETCH_REQUEST":
@@ -33,6 +34,7 @@ const reducer=(state,action)=>{
 	  }
 const TeachDashboard = () => {
     const [{loading,error,student,course,loading2},dispatch]=useReducer(reducer,initialtState)
+    const [courses, setCourses] = useState([]);
 	useEffect(()=>{
 		const fetchData=async()=>{
 		 dispatch({type:"FETCH_REQUEST"})
@@ -55,7 +57,29 @@ const TeachDashboard = () => {
 		fetchData()
 		fetchData2()
 	   },[])
-       console.log(student)
+      //  console.log(student)
+       const deleteStudent=async(id)=>{
+        console.log('delete me')
+        const student={id:id}
+        try {
+          const data=await axios.post("http://localhost:5000/deletestudent",student)
+          toast.success("Deleted SuccessFully")
+          window.location.reload()
+         } catch (error) {
+          toast.error(error.message)
+         }
+      }
+       const deleteCourse=async(id)=>{
+        console.log('delete me2')
+        const course={id:id}
+        try {
+          const data=await axios.post("http://localhost:5000/deletecourse",course)
+          toast.success("Deleted SuccessFully")
+          window.location.reload()
+         } catch (error) {
+          toast.error(error.message)
+         }
+      }
     return (
         <div className='dashboard-style'>
             <div className='d-flex'>
@@ -83,7 +107,7 @@ const TeachDashboard = () => {
                   <TableCell>{prod._id}</TableCell>
                   <TableCell>{prod.name}</TableCell>
                   <TableCell>{prod.email}</TableCell>
-                  <TableCell><Button  style={{backgroundColor:"red"}}>Delete</Button></TableCell>
+                  <TableCell><Button onClick={()=>{deleteStudent(prod._id)}} style={{backgroundColor:"red"}}>Delete</Button></TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -105,7 +129,7 @@ const TeachDashboard = () => {
                 <TableRow key={prod._id}>
                   <TableCell>{prod._id}</TableCell>
                   <TableCell>{prod.name}</TableCell>
-                  <TableCell><Button  style={{backgroundColor:"red"}}>Delete</Button></TableCell>
+                  <TableCell><Button onClick={()=>{deleteCourse(prod._id)}} style={{backgroundColor:"red"}}>Delete</Button></TableCell>
                   <TableCell><Button  style={{backgroundColor:"blue"}}>Add Lesson</Button></TableCell>
                 </TableRow>
               ))} 
