@@ -249,15 +249,15 @@ static admin = async (req, res) => {
         }
       }
       static Lesson = async (req, res) => {
-        const { id, title, description, thumbnail_image, file_field } = req.body;
+        const { id, name, pdf, video, exercise_pdf } = req.body;
       
         try {
           const newLesson = new Lesson({
-            id: id,
-            title: title,
-            description: description,
-            thumbnail_image: thumbnail_image,
-            file_field: file_field
+           id: id,
+           name: name,
+           pdf: pdf,
+           video: video,
+          exercise_pdf: exercise_pdf
           });
       
           // Save the new lesson
