@@ -291,13 +291,21 @@ static admin = async (req, res) => {
       // Student UPDATE through ID
 static studentUpdate = async (req, res) => {
   try {
-    const { id } = req.params; 
-    const { email, password, name, country } = req.body; 
+    const { id } = req.body; 
+    const {name, country, email, password, department, cnic, phonenumber,profilepic } = req.body; 
 
  
     const updatedStudent = await User.findByIdAndUpdate(
       id,
-      { email, password, name, country },
+      {   name: name,
+        country: country,
+        email: email,
+        password: hashedPassword,
+        cnic: cnic,
+        department: department,
+        profile_picture:profilepic,
+        phone: phonenumber,
+        isStudent:true },
       { new: true } 
     );
 
