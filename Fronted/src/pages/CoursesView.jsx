@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import { useLocation } from 'react-router-dom';
+
 function CoursesView() {
-    const location = useLocation();
+ 
+  const location = useLocation();
   const { data } = location.state;
-   console.log(data)
+ 
   return (
     <>
    <div id="ccn-main-region">
@@ -90,32 +92,20 @@ function CoursesView() {
                           <h4 class="title">Course Content</h4>
                           <ul class="course_schdule float-right">
                             <li class="list-inline-item"><a href="#">Start Date: 22/12/19 </a></li>
-                            <li class="list-inline-item"><a href="#">Category: Design</a></li>
                           </ul>
                         </div>
                         <br/>
                   <span class="notifications" id="user-notifications"></span>
-                  <span id="maincontent"></span><form action="." method="get"><div><input type="hidden" id="completion_dynamic_change" name="completion_dynamic_change" value="0"/></div></form><div class="course-content"><h2 class="accesshide">Course outline</h2><div class="ccn_course_content topics"><div id="section-0" class="section main clearfix details" role="region" aria-label="General"><div id="accordion" class="panel-group cc_tab">
+                  <span id="maincontent"></span>
+                  <form action="." method="get"><div><input type="hidden" id="completion_dynamic_change" name="completion_dynamic_change" value="0"/></div></form><div class="course-content"><h2 class="accesshide">Course outline</h2><div class="ccn_course_content topics"><div id="section-0" class="section main clearfix details" role="region" aria-label="General"><div id="accordion" class="panel-group cc_tab">
               <div class="panel">
                 <div class="panel-heading"><h4 class="panel-title">
                   <a href="#panel-0" class="accordion-toggle link" data-toggle="collapse" data-parent="#accordion">General</a>
-                </h4></div><div id="panel-0" class="panel-collapse collapse"><div class="panel-body"><span class="hidden sectionname">General</span><div class="left side"></div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="http://demo.createdbycocoon.com/moodle/edumy/2/theme/image.php/edumy/core/1583196004/spacer"/></div><div class="content"><h3 class="sectionname accesshide"><span><a href="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=11#section-0">General</a></span></h3><div class="section_availability"></div><div class="summary" styles = {{zIndex: 999}}></div><div></div><ul class="section img-text cs_list mb0"><li class="activity forum modtype_forum " id="module-30"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="http://demo.createdbycocoon.com/moodle/edumy/2/mod/forum/view.php?id=30"><img src="http://demo.createdbycocoon.com/moodle/edumy/2/theme/image.php/edumy/forum/1583196004/icon" class="iconlarge activityicon" alt="" role="presentation" aria-hidden="true"/><span class="instancename">Announcements<span class="accesshide "> Forum</span></span></a></div></div></div></div></li></ul></div></div></div></div></div></div><div id="section-1" class="section main clearfix details" role="region" aria-label="Topic 1"><div id="accordion" class="panel-group cc_tab">
-              <div class="panel">
-                <div class="panel-heading"><h4 class="panel-title">
-                  <a href="#panel-1" class="accordion-toggle link" data-toggle="collapse" data-parent="#accordion">Topic 1</a>
-                </h4></div><div id="panel-1" class="panel-collapse collapse"><div class="panel-body"><span class="hidden sectionname">Topic 1</span><div class="left side"></div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="http://demo.createdbycocoon.com/moodle/edumy/2/theme/image.php/edumy/core/1583196004/spacer"/></div><div class="content"><h3 class="sectionname"><span><a href="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=11#section-1">Topic 1</a></span></h3><div class="section_availability"></div><div class="summary" styles = {{zIndex: 999}}></div><div></div><ul class="section img-text cs_list mb0"></ul></div></div></div></div></div></div><div id="section-2" class="section main clearfix details" role="region" aria-label="Topic 2"><div id="accordion" class="panel-group cc_tab">
-              <div class="panel">
-                <div class="panel-heading"><h4 class="panel-title">
-                  <a href="#panel-2" class="accordion-toggle link" data-toggle="collapse" data-parent="#accordion">Topic 2</a>
-                </h4></div><div id="panel-2" class="panel-collapse collapse"><div class="panel-body"><span class="hidden sectionname">Topic 2</span><div class="left side"></div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="http://demo.createdbycocoon.com/moodle/edumy/2/theme/image.php/edumy/core/1583196004/spacer"/></div><div class="content"><h3 class="sectionname"><span><a href="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=11#section-2">Topic 2</a></span></h3><div class="section_availability"></div><div class="summary" styles = {{zIndex: 999}}></div><div></div><ul class="section img-text cs_list mb0"></ul></div></div></div></div></div></div><div id="section-3" class="section main clearfix details" role="region" aria-label="Topic 3"><div id="accordion" class="panel-group cc_tab">
-              <div class="panel">
-                <div class="panel-heading"><h4 class="panel-title">
-                  <a href="#panel-3" class="accordion-toggle link" data-toggle="collapse" data-parent="#accordion">Topic 3</a>
-                </h4></div><div id="panel-3" class="panel-collapse collapse"><div class="panel-body"><span class="hidden sectionname">Topic 3</span><div class="left side"></div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="http://demo.createdbycocoon.com/moodle/edumy/2/theme/image.php/edumy/core/1583196004/spacer"/></div><div class="content"><h3 class="sectionname"><span><a href="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=11#section-3">Topic 3</a></span></h3><div class="section_availability"></div><div class="summary" styles = {{zIndex: 999}}></div><div></div><ul class="section img-text cs_list mb0"></ul></div></div></div></div></div></div><div id="section-4" class="section main clearfix details" role="region" aria-label="Topic 4"><div id="accordion" class="panel-group cc_tab">
-              <div class="panel">
-                <div class="panel-heading"><h4 class="panel-title">
-                  <a href="#panel-4" class="accordion-toggle link" data-toggle="collapse" data-parent="#accordion">Topic 4</a>
-                </h4></div><div id="panel-4" class="panel-collapse collapse"><div class="panel-body"><span class="hidden sectionname">Topic 4</span><div class="left side"></div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="http://demo.createdbycocoon.com/moodle/edumy/2/theme/image.php/edumy/core/1583196004/spacer"/></div><div class="content"><h3 class="sectionname"><span><a href="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=11#section-4">Topic 4</a></span></h3><div class="section_availability"></div><div class="summary" styles = {{zIndex: 999}}></div><div></div><ul class="section img-text cs_list mb0"></ul></div></div></div></div></div></div></div></div>
+                </h4></div><div id="panel-0" class="panel-collapse collapse"><div class="panel-body"><span class="hidden sectionname">General</span><div class="left side"></div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="http://demo.createdbycocoon.com/moodle/edumy/2/theme/image.php/edumy/core/1583196004/spacer"/></div><div class="content"><h3 class="sectionname accesshide"><span><a href="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=11#section-0">General</a></span></h3><div class="section_availability"></div><div class="summary" styles = {{zIndex: 999}}></div><div></div><ul class="section img-text cs_list mb0"><li class="activity forum modtype_forum " id="module-30"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="http://demo.createdbycocoon.com/moodle/edumy/2/mod/forum/view.php?id=30"><img src="http://demo.createdbycocoon.com/moodle/edumy/2/theme/image.php/edumy/forum/1583196004/icon" class="iconlarge activityicon" alt="" role="presentation" aria-hidden="true"/><span class="instancename">Announcements<span class="accesshide "> Forum</span></span></a></div></div></div></div></li></ul></div></div></div>
+                </div>
+               
+
+                </div></div></div></div>
                   
                   
                       </div>

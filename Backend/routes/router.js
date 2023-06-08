@@ -18,7 +18,7 @@ router.post('/deletestudent',Controllers.studentDelete)
 //Delete course by ID
 router.post('/deletecourse',Controllers.deleteCourse)
 router.post('/Confrmcode',Controllers.sendConfirmationCode)
-router.post('/resetpassowrd',Controllers.resetPassword)
+router.post('/resetpassword',Controllers.resetPassword)
 
 
 // create admin

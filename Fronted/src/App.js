@@ -17,6 +17,8 @@ import AdmProtected from './components/AdmProtected'
 import EditRegistation from './pages/student/EditRegistation'
 import Forget from './pages/Forget'
 import CoursesView from './pages/CoursesView';
+import Confirmationcode from './pages/Confirmationcode';
+import Resetpassword from './pages/ResetPassword';
 function App() {
   return (
     <>
@@ -42,6 +44,8 @@ function App() {
       <Route path="/courseview" element={<CoursesView/>}/>
       <Route path="/registration" element={<StudentRegistration/>}/>
       <Route path="/forget" element={<Forget/>}/>
+      <Route path="/confirmationpage" element={<Confirmationcode/>}/>
+      <Route path="/resetpassword/:id" element={<Resetpassword/>}/>
       {/* <Route path="/choice" element={<Choices/>}/> */}
 
       {/* Admin Paths */}

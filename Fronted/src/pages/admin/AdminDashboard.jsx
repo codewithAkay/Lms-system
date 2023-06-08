@@ -22,6 +22,7 @@ const reducer=(state,action)=>{
 		return {...state,loading2:false,course:action.payload}
 	  case "FETCH_FAILURE2":
 		return{...state,loading2:false,error2:action.payload}  
+	 
 	  default :
 	  return " "  
 	}
@@ -32,11 +33,13 @@ const reducer=(state,action)=>{
     error:'',
 		course:[],
 		loading2:true,
-		error2:''
+		error2:'',
 	  }
 const TeachDashboard = () => {
     const [{loading,error,student,course,loading2,error2},dispatch]=useReducer(reducer,initialtState)
     const [showPopup2, setShowPopup2] = useState(false);
+    const [lesson, setLesson] = useState([]);
+
 	useEffect(()=>{
 		const fetchData=async()=>{
 		 dispatch({type:"FETCH_REQUEST"})
@@ -71,7 +74,6 @@ const TeachDashboard = () => {
          }
       }
        const deleteCourse=async(id)=>{
-        console.log('delete me2')
         const course={id:id}
         try {
           const data=await axios.post("http://localhost:5000/deletecourse",course)
@@ -88,6 +90,20 @@ const TeachDashboard = () => {
       const closePopup2 = () => {
         setShowPopup2(false);
       };
+    
+      const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+const handleViews =async(productId) => {
+  setIsDropdownOpen(!isDropdownOpen); // Toggle the dropdown state
+  // Additional logic if needed
+  const course={id:productId}
+  try {
+    const {data}=await axios.post("http://localhost:5000/fetchOnlylesson",course)
+    setLesson(data)
+   } catch (error) {
+    toast.error(error.message)
+   }
+};
     return (
         <div className='dashboard-style'>
             <div className='d-flex'>
@@ -148,14 +164,29 @@ const TeachDashboard = () => {
                 <TableBody>
                 <TableHead>
                 <TableRow>
-                <TableCell>Lessons in {prod.name}</TableCell>
-                </TableRow>
-                </TableHead>
-                <TableRow>
-                 <TableCell>
-                  <li></li>
-                 </TableCell>
-                </TableRow>
+  <TableCell>
+    Lessons in {prod.name}{' '}
+    <Button onClick={() => handleViews(prod._id)}>
+      {isDropdownOpen ? 'Close' : 'View'}
+    </Button>
+  </TableCell>
+</TableRow>
+</TableHead>
+{isDropdownOpen && (
+  <TableRow>
+    <TableCell>
+      <ul>
+        {lesson ? (
+          lesson.map((prods) => (
+            <li key={prods._id}>Lesson <strong>{prods.name}</strong></li>
+          ))
+        ) : (
+          <li>No lessons found</li>
+        )}
+      </ul>
+    </TableCell>
+  </TableRow>
+)}
                 </TableBody>
                 </>
               ))} 

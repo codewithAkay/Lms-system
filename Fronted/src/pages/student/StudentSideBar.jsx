@@ -77,7 +77,7 @@ const StudentSideBar = () => {
             alt="profile-img"
           />
         <div className="d-flex flex-column ">
-        <h5 style={{fontSize:'15px'}} className="sidebar-name">Email: {UserInfo.email}</h5>
+        <h5 style={{fontSize:'15px'}} className="sidebar-name">Email <br /> {UserInfo.email}</h5>
         <h5 style={{fontSize:'15px'}} className="sidebar-name">Name: {UserInfo.name.toUpperCase()}</h5>
         <h5 style={{fontSize:'15px'}} className="sidebar-name">Phone No: {UserInfo.phone}</h5>
         <h5 style={{fontSize:'15px'}} className="sidebar-name">Department: {UserInfo.department}</h5>

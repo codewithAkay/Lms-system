@@ -39,6 +39,8 @@ function EditRegistation() {
         try {
             localStorage.removeItem("UserInfo")
             const { data } = await axios.post("http://localhost:5000/updatestu", actualData)
+            localStorage.setItem("UserInfo",JSON.stringify(data))
+            dispatch({type:'update',payload:data})
             navigate("/studentdashboard")
             toast.success("Student Data Update")
         } catch (error) {

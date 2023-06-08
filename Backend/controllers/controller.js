@@ -301,8 +301,8 @@ static admin = async (req, res) => {
 static studentUpdate = async (req, res) => {
   try {
     const { id } = req.body; 
-    const {name, country, email, hashedPassword, department, cnic, phonenumber,profilepic } = req.body; 
-
+    const {name, country, email,password, department, cnic, phonenumber,profilepic } = req.body; 
+    const hashedPassword = await bcrypt.hash(password, 10);
  
     const updatedStudent = await User.findByIdAndUpdate(
       id,
@@ -380,7 +380,7 @@ static studentDelete = async (req, res) => {
         to: email,
         subject: 'Password Reset Confirmation Code',
         html: `<h5>Click the button to reset your password:</h5>
-         <a href="http://localhost:5000/resetpassword/${user._id}">
+         <a href="http://localhost:3000/resetpassword/${user._id}">
            <button style="background-color: blue; color: white; padding: 10px 15px; border: none; cursor: pointer;">
              Reset Password
            </button>
@@ -403,22 +403,17 @@ static studentDelete = async (req, res) => {
 
   static resetPassword = async (req, res) => {
     try {
-      const { email, confirmationCode, newPassword } = req.body;
+      const {id,password} = req.body;
 
+       const hashedPassword = await bcrypt.hash(password, 10);
       // Check if the user exists in the database
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ _id:id });
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
 
-      // Check if the confirmation code matches
-      if (user.confirmationCode !== confirmationCode) {
-        return res.status(400).json({ message: 'Invalid confirmation code' });
-      }
-
       // Update the user's password
-      user.password = newPassword;
-      user.confirmationCode = null;
+      user.password = hashedPassword;
       await user.save();
 
       res.json({ message: 'Password reset successful' });
