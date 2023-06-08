@@ -283,7 +283,7 @@ static admin = async (req, res) => {
       }
       static fetchCourse = async (req, res) => {
         try {
-          const data = await Course.find({}); // Use the `find` method to fetch all documents from the `User` collection
+          const data = await Course.find({}); 
           res.status(200).send(data);
         } catch (error) {
           console.error(error);
