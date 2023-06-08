@@ -32,8 +32,8 @@ mongoose.connect(
 		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		next();
 	  });
-	app.use(express.json({ limit: '50mb' }));
-	app.use(express.urlencoded({ limit: '50mb', extended: true }));
+	app.use(express.json({ limit: '100mb' }));
+	app.use(express.urlencoded({ limit: '100mb', extended: true }));
 	app.use(cors())
 	app.use('/',router)
 

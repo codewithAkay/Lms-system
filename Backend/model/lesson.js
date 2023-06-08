@@ -17,7 +17,7 @@ const lessonSchema = new mongoose.Schema({
   video: { 
     type: String 
   },
- exercise: { 
+  exercise_pdf: { 
     type: String, 
     required: true
    },

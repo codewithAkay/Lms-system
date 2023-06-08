@@ -38,9 +38,9 @@ function EditRegistation() {
         // console.log(actualData)
         try {
             localStorage.removeItem("UserInfo")
-            const { data } = await axios.post("http://localhost:5000/updateInfo", actualData)
-            navigate("/studentlogin")
-            toast.success("Student Registred")
+            const { data } = await axios.post("http://localhost:5000/updatestu", actualData)
+            navigate("/studentdashboard")
+            toast.success("Student Data Update")
         } catch (error) {
             toast.error(getError(error))
         }
