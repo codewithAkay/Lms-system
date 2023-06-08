@@ -26,6 +26,7 @@ router.post('/Admin',Controllers.Adminlogin)
 router.post('/Addcourse',Controllers.Course)
 router.post('/Addlesson',Controllers.Lesson)
 //student fetch
+router.post('/fetchOnlylesson',Controllers.onlyLesson)
 router.get('/fetchstudent',Controllers.fetchStudent)
 router.get('/fetchcourse',Controllers.fetchCourse)
 

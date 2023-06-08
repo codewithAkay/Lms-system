@@ -252,7 +252,7 @@ static admin = async (req, res) => {
       }
       static Lesson = async (req, res) => {
         const { id, name, pdf, video, exercise_pdf } = req.body;
-      
+        
         try {
           const newLesson = new Lesson({
            id: id,
@@ -290,6 +290,13 @@ static admin = async (req, res) => {
           res.status(500).send('Internal Server Error');
         }
       }
+   
+       static onlyLesson=async(req,res)=>{
+        const { id } = req.body;
+       const data = await Lesson.find({ id: id }, { _id: 1, name: 1 });
+        res.status(200).send(data)
+       }
+
       // Student UPDATE through ID
 static studentUpdate = async (req, res) => {
   try {

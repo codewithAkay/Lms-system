@@ -38,7 +38,7 @@ function Home() {
 		 }
 		}
 		fetchData()
-	   },[])
+	   },[dispatch])
 
 	   
     return (
