@@ -363,13 +363,13 @@ static studentDelete = async (req, res) => {
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'your-email@gmail.com',
-          pass: 'your-password',
+          user: 'donald.duck0762@gmail.com',
+          pass: 'bxlshrmgvwhvaave',
         },
       });
 
       const mailOptions = {
-        from: 'your-email@gmail.com',
+        from: 'donald.duck0762@gmail.com',
         to: email,
         subject: 'Password Reset Confirmation Code',
         text: `Your confirmation code is: ${confirmationCode}`,
