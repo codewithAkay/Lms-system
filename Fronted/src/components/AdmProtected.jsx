@@ -7,7 +7,7 @@ const AdmProtected=({children})=>{
     const {state}=useContext(Store)
     const {UserInfo}=state
 
-    return  UserInfo && UserInfo.isAdmin ?  children : <Navigate to='/login'/>
+    return  UserInfo && UserInfo.isAdmin ?  children : <Navigate to='/'/>
 }
 
 export default AdmProtected

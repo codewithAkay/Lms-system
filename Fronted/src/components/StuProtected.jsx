@@ -6,7 +6,7 @@ import { Store } from "./Store"
 const StuProtected=({children})=>{
     const {state}=useContext(Store)
     const {UserInfo}=state
-    return   UserInfo && UserInfo.isStudent ?  children : <Navigate to='/login'/> 
+    return   UserInfo && UserInfo.isStudent && UserInfo.is_verified ?  children : <Navigate to='/'/> 
 }
 
 export default StuProtected

@@ -1,11 +1,27 @@
+import { Button } from '@mui/material';
+import axios from 'axios';
 import React, { useEffect, useReducer, useState } from 'react'
 import { useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function CoursesView() {
  
   const location = useLocation();
   const { data } = location.state;
- 
+  const [lesson,setLesson]=useState([])
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+const handleViews =async(productId) => {
+  setIsDropdownOpen(!isDropdownOpen); // Toggle the dropdown state
+  // Additional logic if needed
+  const course={id:productId}
+  try {
+    const {data}=await axios.post("http://localhost:5000/fetchOnlylesson",course)
+    setLesson(data)
+   } catch (error) {
+    toast.error(error.message)
+   }
+};
   return (
     <>
    <div id="ccn-main-region">
@@ -97,11 +113,22 @@ function CoursesView() {
                         <br/>
                   <span class="notifications" id="user-notifications"></span>
                   <span id="maincontent"></span>
-                  <form action="." method="get"><div><input type="hidden" id="completion_dynamic_change" name="completion_dynamic_change" value="0"/></div></form><div class="course-content"><h2 class="accesshide">Course outline</h2><div class="ccn_course_content topics"><div id="section-0" class="section main clearfix details" role="region" aria-label="General"><div id="accordion" class="panel-group cc_tab">
+                  <form action="." method="get"><div><input type="hidden" id="completion_dynamic_change" name="completion_dynamic_change" value="0"/></div></form><div class="course-content"><h2 class="accesshide">Course Lessons</h2><div class="ccn_course_content topics"><div id="section-0" class="section main clearfix details" role="region" aria-label="General"><div id="accordion" class="panel-group cc_tab">
               <div class="panel">
-                <div class="panel-heading"><h4 class="panel-title">
-                  <a href="#panel-0" class="accordion-toggle link" data-toggle="collapse" data-parent="#accordion">General</a>
-                </h4></div><div id="panel-0" class="panel-collapse collapse"><div class="panel-body"><span class="hidden sectionname">General</span><div class="left side"></div><div class="right side"><img class="icon spacer" width="1" height="1" alt="" aria-hidden="true" src="http://demo.createdbycocoon.com/moodle/edumy/2/theme/image.php/edumy/core/1583196004/spacer"/></div><div class="content"><h3 class="sectionname accesshide"><span><a href="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=11#section-0">General</a></span></h3><div class="section_availability"></div><div class="summary" styles = {{zIndex: 999}}></div><div></div><ul class="section img-text cs_list mb0"><li class="activity forum modtype_forum " id="module-30"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="http://demo.createdbycocoon.com/moodle/edumy/2/mod/forum/view.php?id=30"><img src="http://demo.createdbycocoon.com/moodle/edumy/2/theme/image.php/edumy/forum/1583196004/icon" class="iconlarge activityicon" alt="" role="presentation" aria-hidden="true"/><span class="instancename">Announcements<span class="accesshide "> Forum</span></span></a></div></div></div></div></li></ul></div></div></div>
+              <Button onClick={() => handleViews(data._id)}>
+      {isDropdownOpen ? 'Close' : 'View'}
+    </Button>
+    {
+      isDropdownOpen && 
+               <div class="panel-heading">
+                {lesson.map((item)=>(
+                <h4 class="panel-title">
+                  <a href="#" class="accordion-toggle link" data-toggle="collapse" data-parent="#accordion">{item.name}</a>
+                </h4>
+                  )) 
+                }
+                </div>
+              }
                 </div>
                
 
@@ -144,141 +171,6 @@ function CoursesView() {
 
     <a href="#sb-10" class="sr-only sr-only-focusable">Skip [Cocoon] Related courses</a>
 
-
-
-
-
-  <div class="">
-    
-
-
-
-        <div class="row">
-    <div class="col-lg-12">
-      <h3 class="r_course_title">Related Courses</h3>
-    </div>
-
-
-
-            <div class="col-lg-6 col-xl-4">
-							<div class="top_courses">
-              <a href="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=11">
-								<div class="thumb">
-
-									<img class="img-whp" src="http://demo.createdbycocoon.com/moodle/edumy/2/pluginfile.php/156/course/overviewfiles/t8.jpg" alt="Fashion Photography From Professional"/>
-									<div class="overlay">
-										<div class="tag">Top Seller</div>
-										<span class="tc_preview_course">Preview Course</span>
-									</div>
-								</div>
-								<div class="details">
-									<div class="tc_content">
-                  <p>Updated 21/12/19</p>
-										<h5>Fashion Photography From Professional</h5>
-										<ul class="tc_review">
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-										</ul>
-									</div>
-									<div class="tc_footer">
-										<ul class="tc_meta float-left">
-											<li class="list-inline-item"><i class="flaticon-profile"></i></li>
-											<li class="list-inline-item">2</li>
-											<li class="list-inline-item"><i class="flaticon-comment"></i></li>
-											<li class="list-inline-item">5</li>
-										</ul>
-									</div>
-								</div></a>
-							</div>
-						</div>
-
-
-            
-
-            <div class="col-lg-6 col-xl-4">
-							<div class="top_courses">
-              <a href="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=10">
-								<div class="thumb">
-
-									<img class="img-whp" src="http://demo.createdbycocoon.com/moodle/edumy/2/pluginfile.php/155/course/overviewfiles/t7.jpg" alt="How to Make Beautiful Landscape Photos?"/>
-									<div class="overlay">
-										<div class="tag">Top Seller</div>
-										<span class="tc_preview_course">Preview Course</span>
-									</div>
-								</div>
-								<div class="details">
-									<div class="tc_content">
-                  <p>Updated 28/12/19</p>
-										<h5>How to Make Beautiful Landscape Photos?</h5>
-										<ul class="tc_review">
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-										</ul>
-									</div>
-									<div class="tc_footer">
-										<ul class="tc_meta float-left">
-											<li class="list-inline-item"><i class="flaticon-profile"></i></li>
-											<li class="list-inline-item">0</li>
-											<li class="list-inline-item"><i class="flaticon-comment"></i></li>
-											<li class="list-inline-item">0</li>
-										</ul>
-									</div>
-								</div></a>
-							</div>
-						</div>
-
-
-            
-
-            <div class="col-lg-6 col-xl-4">
-							<div class="top_courses">
-              <a href="http://demo.createdbycocoon.com/moodle/edumy/2/course/view.php?id=9">
-								<div class="thumb">
-
-									<img class="img-whp" src="http://demo.createdbycocoon.com/moodle/edumy/2/pluginfile.php/154/course/overviewfiles/t6.jpg" alt="How to be a DJ? Make Electronic Music"/>
-									<div class="overlay">
-										<div class="tag">Top Seller</div>
-										<span class="tc_preview_course">Preview Course</span>
-									</div>
-								</div>
-								<div class="details">
-									<div class="tc_content">
-                  <p>Updated 28/12/19</p>
-										<h5>How to be a DJ? Make Electronic Music</h5>
-										<ul class="tc_review">
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-										</ul>
-									</div>
-									<div class="tc_footer">
-										<ul class="tc_meta float-left">
-											<li class="list-inline-item"><i class="flaticon-profile"></i></li>
-											<li class="list-inline-item">0</li>
-											<li class="list-inline-item"><i class="flaticon-comment"></i></li>
-											<li class="list-inline-item">0</li>
-										</ul>
-									</div>
-								</div></a>
-							</div>
-						</div>
-
-
-            
-		</div>
-
-
-    
-    
-  </div>
 
     <span id="sb-10"></span>
 

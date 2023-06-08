@@ -414,15 +414,7 @@ static studentDelete = async (req, res) => {
       const confirmationCode = generateConfirmationCode();
       user.confirmationCode = confirmationCode;
       await user.save();
-  // Validate the email address
-  // Implement your own validation logic here, e.g., check if the email exists in your database
-
-  // Generate a confirmation code (can be a random string or a numeric code)
-
-  // Save the confirmation code in your database
-  // Associate the confirmation code with the user's email address and an expiration date if needed
-
-  // Compose the email message
+ 
   const mailOptions = {
     from: 'donald.duck0762@gmail.com',
     to: email,
@@ -461,15 +453,17 @@ function generateConfirmationCode() {
 
 static codeCheck=async(req,res)=>{
    const {code,email}=req.body
-   const user=await User.find({email})
+   const user = await User.findOne({ email });
    if(code && email){
      if(!user){
-       res.status(400).send("User Not Found")
+      return res.status(400).json({ error: 'User Not Found' });
       }else{
         if(user.confirmationCode==code){
-          res.status(200).send("Confirmed")
+          user.is_verified=true
+          const save =await user.save()
+          res.status(200).send(save)
         }else{
-          res.status(400).send("Code not Matched")
+          return res.status(400).json({ error: 'Code Not Matched' });
           
         }
       }

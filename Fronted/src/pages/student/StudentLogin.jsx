@@ -14,14 +14,12 @@ function StudentLogin() {
           email:Formdata.get("email"),
           password:Formdata.get("password"),
         }
-        console.log(actualData)
         try {
           const {data}=await axios.post("http://localhost:5000/studentlogin",actualData)
-          localStorage.setItem("UserInfo",JSON.stringify(data))
-          dispatch({type:'UserLoggedIn',payload:data})
-          navigate("/studentdashboard")
-          toast.success("Student Logged In")
-        
+  
+          const {data2}=await axios.post('http://localhost:5000/authcode',{email:actualData.email})
+          toast.success("Confirmation Code send to email please check")
+          navigate('/confirmationpage', { state: { data: actualData.email } });      
         } catch (error) {
           toast.error("Email and Password is Invalid")
         }

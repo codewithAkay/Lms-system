@@ -1,4 +1,5 @@
-const mongoose=require('mongoose')
+const mongoose=require('mongoose');
+const { ConfirmationCode } = require('../controllers/controller');
 
 const userSchema=new mongoose.Schema(
     {
@@ -49,15 +50,12 @@ const userSchema=new mongoose.Schema(
         isStudent:{
           type:Boolean,
           default:false
-        }
-      
+        },
+        confirmationCode:{type:String}
       },
       {
         timestamps: true,
       },
-      {      
-      confirmationCode: String
-      }
     );
    
 
