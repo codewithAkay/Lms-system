@@ -374,12 +374,17 @@ static studentDelete = async (req, res) => {
           pass: 'bxlshrmgvwhvaave',
         },
       });
-
+ 
       const mailOptions = {
         from: 'donald.duck0762@gmail.com',
         to: email,
         subject: 'Password Reset Confirmation Code',
-        text: `Your confirmation code is: ${confirmationCode}`,
+        html: `<h5>Click the button to reset your password:</h5>
+         <a href="http://localhost:5000/resetpassword/${user._id}">
+           <button style="background-color: blue; color: white; padding: 10px 15px; border: none; cursor: pointer;">
+             Reset Password
+           </button>
+         </a>`,
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
@@ -422,6 +427,7 @@ static studentDelete = async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
   }
+  
 }
 
 
