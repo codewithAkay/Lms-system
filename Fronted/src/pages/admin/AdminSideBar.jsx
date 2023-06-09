@@ -28,7 +28,6 @@ const TeachSideBar = () => {
   // const user = JSON.parse(localStorage.getItem("user"));
   // const user = store.getState().user.user?.data
   const user = useSelector(getUser).data;
- console.log(UserInfo)
 
   const handleNavigate = (path) => {
     navigate(path);
@@ -54,15 +53,13 @@ const TeachSideBar = () => {
           <i onClick={() => setToggled(!toggled)} className="fa fa-bars" />
         }
       >
-        <h5 className="sidebar-name">{UserInfo.isTeacher?"Teacher":UserInfo.isStudent?"Student":UserInfo.isAdmin?"Admin":"Dashboard"} </h5>
+        <h5 className="sidebar-name">ADMIN</h5>
           <img
             src={ fakeImg}
             className="profileImg-style"
             alt="profile-img"
           />
         <div className="d-flex flex-column ">
-        <h5 style={{fontSize:'15px'}} className="sidebar-name">Email: {UserInfo.email}</h5>
-        <h5 style={{fontSize:'15px'}} className="sidebar-name">Name: Admin</h5>
         
 
         

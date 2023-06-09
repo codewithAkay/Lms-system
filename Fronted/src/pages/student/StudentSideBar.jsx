@@ -70,18 +70,15 @@ const StudentSideBar = () => {
           <i onClick={() => setToggled(!toggled)} className="fa fa-bars" />
         }
       >
-        <h5 className="sidebar-name">{UserInfo.isTeacher?"Teacher":UserInfo.isStudent?"Student":UserInfo.isAdmin?"Admin":"Dashboard"} </h5>
+        <h5 className="sidebar-name">{UserInfo.name.toUpperCase}</h5>
           <img
             src={ fakeImg}
             className="profileImg-style"
             alt="profile-img"
           />
         <div className="d-flex flex-column ">
-        <h5 style={{fontSize:'15px'}} className="sidebar-name">Email <br /> {UserInfo.email}</h5>
         <h5 style={{fontSize:'15px'}} className="sidebar-name">Name: {UserInfo.name.toUpperCase()}</h5>
-        <h5 style={{fontSize:'15px'}} className="sidebar-name">Phone No: {UserInfo.phone}</h5>
         <h5 style={{fontSize:'15px'}} className="sidebar-name">Department: {UserInfo.department}</h5>
-        <h5 style={{fontSize:'15px'}} className="sidebar-name">Cnic: {UserInfo.cnic}</h5>
        
         </div>
       </CDBSidebarHeader>
