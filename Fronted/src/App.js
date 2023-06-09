@@ -40,6 +40,7 @@ function App() {
       {/* website Paths */}
       <Route path="/" element={<Home/>}/>
       <Route path="/courses" element={<Courses/>}/>
+      <Route path="/Choice" element={<Choices/>}/>
       <Route path="/login" element={<Choices/>}/>
       <Route path="/courseview" element={<CoursesView/>}/>
       <Route path="/registration" element={<StudentRegistration/>}/>

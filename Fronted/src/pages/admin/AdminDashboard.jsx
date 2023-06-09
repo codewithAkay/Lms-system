@@ -137,7 +137,7 @@ const TeachDashboard = () => {
                           <TableCell>{prod._id}</TableCell>
                           <TableCell>{prod.name}</TableCell>
                           <TableCell>{prod.email}</TableCell>
-                          <TableCell ><Button color='primary' className='btn btn-sm' onClick={() => { deleteStudent(prod._id) }} >Delete</Button></TableCell>
+                          <TableCell ><Button style={{backgroundColor:'red',color:'white'}} onClick={() => { deleteStudent(prod._id) }} >Delete</Button></TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
@@ -169,8 +169,8 @@ const TeachDashboard = () => {
                         </Modal>
                         <TableCell>{prod._id}</TableCell>
                         <TableCell>{prod.name}</TableCell>
-                        <TableCell><Button onClick={() => { deleteCourse(prod._id) }} style={{ backgroundColor: "red" }}>Delete</Button></TableCell>
-                        <TableCell><Button onClick={openPopup} style={{ backgroundColor: "blue" }}>Add Lesson</Button></TableCell>
+                        <TableCell><Button onClick={() => { deleteCourse(prod._id) }} style={{ backgroundColor: "red",color:'white' }}>Delete</Button></TableCell>
+                        <TableCell><Button onClick={openPopup} style={{ backgroundColor: "blue",color:'white' }}>Add Lesson</Button></TableCell>
                       </TableRow>
                       <TableBody>
                         <TableHead>

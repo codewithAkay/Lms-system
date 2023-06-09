@@ -1,11 +1,13 @@
 import { Button } from '@mui/material';
 import axios from 'axios';
-import React, { useEffect, useReducer, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import React, { useContext, useEffect, useReducer, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import { Store } from '../components/Store';
+import StripeCheckout from 'react-stripe-checkout'
 function CoursesView() {
- 
+  const {state,dispatch}=useContext(Store)
+  const {UserInfo}=state
   const location = useLocation();
   const { data } = location.state;
   const [lesson,setLesson]=useState([])
@@ -22,6 +24,16 @@ const handleViews =async(productId) => {
     toast.error(error.message)
    }
 };
+
+const handletoken=async(token,address)=>{
+  try {
+    const data=await axios.post('http://localhost:5000/checkout',{token,data})
+    toast.success("Sucessfully")
+  } catch (error) {
+    toast.error(error.message)
+  }
+
+}
   return (
     <>
    <div id="ccn-main-region">
@@ -41,7 +53,7 @@ const handleViews =async(productId) => {
     </div>
     <h3 class="cs_title ">{data.name}</h3>
     <ul class="cs_review_enroll">
-      <li class="list-inline-item" style={{color:'grey',fontSize:'30px'}}>Purchased to Watch Video</li>
+      <li class="list-inline-item" style={{color:'grey',fontSize:'30px'}}>Purchased to Start Course</li>
     </ul>
     </div>
     <div class="courses_big_thumb">
@@ -185,22 +197,57 @@ const handleViews =async(productId) => {
 
 
 
-  <div class="">
-      <div class="instructor_pricing_widget">
-                                      <div class="price">
-                                        <span>Price</span> ${data.price} <small>USD</small>
-                                      </div>
-                                      <a href="http://demo.createdbycocoon.com/moodle/edumy/2/enrol/index.php?id=11" class="cart_btnss">Buy &amp; Enrol Now</a>
-                                      <div class="ccn-buy-access">Paid course entry</div><ul class="price_quere_list text-left">
-                                        <li><div class="ccn-course-details-item"><span class="flaticon-play-button-1"></span>Video of Course</div></li>
-                                        <li><div class="ccn-course-details-item"><span class="flaticon-download"></span>Many Download Resourses</div></li>
-                                        <li><div class="ccn-course-details-item"><span class="flaticon-key-1"></span> Full lifetime access</div></li>
-                                        <li><div class="ccn-course-details-item"><span class="flaticon-responsive"></span> Access on mobile and TV</div></li>
-                                        <li><div class="ccn-course-details-item"><span class="flaticon-award"></span>Excersie</div></li></ul>
-          </div>
-    
-    
+                  <div className="">
+  <div className="instructor_pricing_widget">
+    <div className="price">
+      <span>Price</span> ${data.price} <small>USD</small>
+    </div>
+    {UserInfo ? (
+      <StripeCheckout 
+      stripeKey='
+
+      sk_test_51NGxZtJqBgewUbeBqgXgPeDwecPIU7x9B2FsEqeeElhS6VJ0r7uZu3zAiYqU2QGAwGEprPI05ThBjFOQ3n0nZx1y00tynG8q3f'
+      token={handletoken}
+      amount={data.price}
+      name={data.name}
+      billingAddress
+      />
+    ) : (
+      <Link to="/choice" className="cart_btnss">
+        Log in to Buy &amp; Enrol Now
+      </Link>
+    )}
+    <div className="ccn-buy-access">Paid course entry</div>
+    <ul className="price_quere_list text-left">
+      <li>
+        <div className="ccn-course-details-item">
+          <span className="flaticon-play-button-1"></span>Video of Course
+        </div>
+      </li>
+      <li>
+        <div className="ccn-course-details-item">
+          <span className="flaticon-download"></span>Many Download Resourses
+        </div>
+      </li>
+      <li>
+        <div className="ccn-course-details-item">
+          <span className="flaticon-key-1"></span>Full lifetime access
+        </div>
+      </li>
+      <li>
+        <div className="ccn-course-details-item">
+          <span className="flaticon-responsive"></span>Access on mobile and TV
+        </div>
+      </li>
+      <li>
+        <div className="ccn-course-details-item">
+          <span className="flaticon-award"></span>Exercise
+        </div>
+      </li>
+    </ul>
   </div>
+</div>
+
 
 
 </div><div id="inst112" class=" block_cocoon_course_features block " role="complementary" data-block="cocoon_course_features">
