@@ -51,7 +51,9 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false
     },
-    confirmationCode: { type: String }
+    confirmationCode: { type: String },
+    paidCourse:{type:String},
+    
   },
   {
     timestamps: true,

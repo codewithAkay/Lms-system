@@ -16,6 +16,8 @@ function reducer(state,action){
             return {...state,UserInfo:action.payload};
         case "update":
             return {UserInfo: action.payload };
+            case "ResetUserInfo":
+                return { ...state, UserInfo: null };
               
         default :
         return state    

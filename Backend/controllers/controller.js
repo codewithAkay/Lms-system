@@ -478,16 +478,14 @@ class Controllers {
     }
   }
 
-  static checkout=async(req,res)=>{
-    let error,status  
+  static checkout=async(req,res)=>{  
+    const {token,data,id}=req.body
     try {
-      const {token,data,id}=req.body
       const customer=await stripe.customers.create({
         email:token.email,
         source:token.id
       })
       const key=uuid()
-
       const charge = await stripe.charges.create({
         amount: data.price * 100,
         currency: "usd",
@@ -496,18 +494,21 @@ class Controllers {
         description: `Purchased the ${data.name}`,
         key: key, 
       });
-      status="success"
+      const user=await User.findOne({_id:id})
+      user.paidCourse=data._id
+      const save= await  user.save()
+      res.status(200).send(save)
     } catch (error) {
-     console.log(error) 
-    }
-    res.json({error,status})
+     res.status(400).json({ error: 'Payment Failed' });    }
+  }
+
+  static fetchLesson=async(req,res)=>{
+
+    const {id}=req.body
+    const data=await Lesson.find({_id:id})
+    res.status(200).send(data)
   }
 }
-
-
-
-
-
 
 
 module.exports = Controllers

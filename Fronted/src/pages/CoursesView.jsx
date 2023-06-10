@@ -12,7 +12,7 @@ function CoursesView() {
   const { data } = location.state;
   const [lesson,setLesson]=useState([])
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+  const [isPaid,setIsPaid]=useState()
 const handleViews =async(productId) => {
   setIsDropdownOpen(!isDropdownOpen); // Toggle the dropdown state
   // Additional logic if needed
@@ -27,13 +27,13 @@ const handleViews =async(productId) => {
 
 const handletoken=async(token,address)=>{
   try {
-    const resule=await axios.post('http://localhost:5000/checkout',{token,data,id:UserInfo._id})
-    
-    if(resule.status===200){
-      toast("Success payment is Completed",{type:"success"})
-    }else{
-      toast("Failure payment is not Completed",{type:"error"})
-    } 
+    const result=await axios.post('http://localhost:5000/checkout',{token,data,id:UserInfo._id})
+    localStorage.removeItem("UserInfo")
+    dispatch({type:'ResetUserInfo'})
+    localStorage.setItem("UserInfo",JSON.stringify(result.data))
+    dispatch({type:'UserLoggedIn',payload:result.data})
+    setIsPaid(result.data.paidCourse)
+    toast.success("Payment Completed SuccessFully")
   } catch (error) {
     toast.error(error.message)
   }
@@ -206,7 +206,11 @@ const handletoken=async(token,address)=>{
     <div className="price">
       <span>Price</span> ${data.price} <small>USD</small>
     </div>
-    {UserInfo ? (
+    
+    {(UserInfo.paidCourse==data._id)?null:
+   <>
+   {UserInfo ? 
+      (
       <StripeCheckout 
       stripeKey='pk_test_51NGxZtJqBgewUbeBi5Kbi9ba2INMfEqsDWR0uXfWE71XeUaazaNlOypIHHbiDfqEPH45vIfJ6sthQW5uMfxKSFvQ009OIQIfzL'
       token={handletoken}
@@ -219,6 +223,8 @@ const handletoken=async(token,address)=>{
         Log in to Buy &amp; Enrol Now
       </Link>
     )}
+    </>
+  }
     <div className="ccn-buy-access">Paid course entry</div>
     <ul className="price_quere_list text-left">
       <li>
