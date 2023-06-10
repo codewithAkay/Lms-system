@@ -22,6 +22,7 @@ router.post('/Confrmcode',Controllers.sendConfirmationCode)
 router.post('/authcode',Controllers.ConfirmationCode)
 router.post('/check',Controllers.codeCheck)
 
+router.post('/checkout',Controllers.checkout)
 // create admin
 
 router.post('/Admin',Controllers.Adminlogin)

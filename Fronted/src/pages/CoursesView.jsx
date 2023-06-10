@@ -27,12 +27,16 @@ const handleViews =async(productId) => {
 
 const handletoken=async(token,address)=>{
   try {
-    const data=await axios.post('http://localhost:5000/checkout',{token,data})
-    toast.success("Sucessfully")
+    const resule=await axios.post('http://localhost:5000/checkout',{token,data,id:UserInfo._id})
+    
+    if(resule.status===200){
+      toast("Success payment is Completed",{type:"success"})
+    }else{
+      toast("Failure payment is not Completed",{type:"error"})
+    } 
   } catch (error) {
     toast.error(error.message)
   }
-
 }
   return (
     <>
@@ -204,11 +208,9 @@ const handletoken=async(token,address)=>{
     </div>
     {UserInfo ? (
       <StripeCheckout 
-      stripeKey='
-
-      sk_test_51NGxZtJqBgewUbeBqgXgPeDwecPIU7x9B2FsEqeeElhS6VJ0r7uZu3zAiYqU2QGAwGEprPI05ThBjFOQ3n0nZx1y00tynG8q3f'
+      stripeKey='pk_test_51NGxZtJqBgewUbeBi5Kbi9ba2INMfEqsDWR0uXfWE71XeUaazaNlOypIHHbiDfqEPH45vIfJ6sthQW5uMfxKSFvQ009OIQIfzL'
       token={handletoken}
-      amount={data.price}
+      amount={data.price*100}
       name={data.name}
       billingAddress
       />

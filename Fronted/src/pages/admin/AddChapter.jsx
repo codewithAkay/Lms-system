@@ -20,7 +20,7 @@ function AddChapter({ onClose, id }) {
     }
     try {
         const { data } = await axios.post("http://localhost:5000/Addlesson", actualData)
-        toast.success("Course Added")
+        toast.success("Lesson Added")
         onClose()
     } catch (error) {
         toast.error(getError(error))

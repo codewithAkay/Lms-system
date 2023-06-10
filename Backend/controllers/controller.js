@@ -4,7 +4,9 @@ const bcrypt = require('bcrypt');
 const User = require('../model/User');
 const Teacher = require("../model/Teacher")
 const Admin = require('../model/Admin')
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
+const uuid=require('uuid').v4
 const router = require('../routes/router');
 const Course = require('../model/course');
 const Lesson = require('../model/lesson');
@@ -474,6 +476,31 @@ class Controllers {
     } else {
       res.status(400).send("Required All Fields")
     }
+  }
+
+  static checkout=async(req,res)=>{
+    let error,status  
+    try {
+      const {token,data,id}=req.body
+      const customer=await stripe.customers.create({
+        email:token.email,
+        source:token.id
+      })
+      const key=uuid()
+
+      const charge = await stripe.charges.create({
+        amount: data.price * 100,
+        currency: "usd",
+        customer: customer.id,
+        receipt_email: token.email,
+        description: `Purchased the ${data.name}`,
+        key: key, 
+      });
+      status="success"
+    } catch (error) {
+     console.log(error) 
+    }
+    res.json({error,status})
   }
 }
 
