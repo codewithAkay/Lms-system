@@ -207,7 +207,7 @@ const handletoken=async(token,address)=>{
       <span>Price</span> ${data.price} <small>USD</small>
     </div>
     
-    {(UserInfo.paidCourse==data._id)?null:
+    {(UserInfo && UserInfo.paidCourse==data._id)?null:
    <>
    {UserInfo ? 
       (
